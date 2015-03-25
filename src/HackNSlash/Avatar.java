@@ -1,4 +1,6 @@
-package HackNSlash;
+package avatar;
+
+import java.awt.Graphics2D;
 
 public abstract class Avatar {
 
@@ -12,31 +14,40 @@ public abstract class Avatar {
 	protected int dir;
 	protected boolean dealDamage;
 	protected boolean ranged;
+	protected boolean playable;
+	protected boolean takeDamage;
+	protected boolean monsterDamage;
 	
 	
-	public abstract void setName();
+	public abstract void setName(String NAME);
 	
 	public String getName(){
 		return name;
 	}
 	
-	public abstract void setHealth();
+	public abstract void setPlayable(boolean PLAYABLE);
 	
-	public abstract void reduceHealth();
+	public boolean getPlayable(){
+		return playable;
+	}
+	
+	public abstract void setHealth(int HEALTH);
+	
+	public abstract void reduceHealth(int DMG_TAKEN);
 	
 	public int getHealth(){
 		return health;
 	}
 	
-	public abstract void setDirection();
+	public abstract void setDirection(int DIRECTION);
 	
 	public int getDirection(){
 		return dir;
 	}
 	
-	public abstract void setXPosition();
+	public abstract void setXPosition(int XPOS);
 	
-	public abstract void setYPosition();
+	public abstract void setYPosition(int YPOS);
 	
 	public int getXPosition(){
 		return xPos;
@@ -46,40 +57,60 @@ public abstract class Avatar {
 		return yPos;
 	}
 	
-	public abstract void setAttackSpeed();
+	public abstract void setAttackSpeed(int ATTACKSPEED);
 	
 	public int getAttackSpeed(){
 		return attackSpeed;
 	}
 	
-	public abstract void setDamage();
+	public abstract void setDamage(int DAMAGE);
 	
 	public int getDamage(){
 		return dmg;
 	}
 	
-	public abstract void setScore();
+	public abstract void setScore(int SCORE);
 	
 	public int getScore(){
 		return score;
 	}
 	
-	public abstract void setDealDamage();
+	public abstract void setDealDamage(boolean DEAL_DAMAGE);
 	
 	public boolean getDealDamage(){
 		return dealDamage;
 	}
 	
-	public abstract void setRanged();
+	public abstract void setTakeDamage(boolean TAKE_DAMAGE);
+	
+	public boolean getTakeDamage(){
+		return takeDamage;
+	}
+	
+	public abstract void setRanged(boolean RANGED);
 	
 	public boolean getRanged(){
 		return ranged;
 	}
 	
-	public abstract void move();
+	//Call this every time a class is initialized!
+	public void setMonsterDamage(){
+		if (playable == true){
+			monsterDamage = true;
+		}
+		else {
+			monsterDamage = false;
+		}
+	}
 	
-	public abstract void attack();
+	public boolean getMonsterDamage(){
+		return monsterDamage;
+	}
 	
-	public abstract void draw();
+	public abstract void move(int X, int Y);
+	
+	public abstract void attack(int ATTACKTYPE);
+	
+	public abstract void paint(Graphics2D g);
 	
 }
