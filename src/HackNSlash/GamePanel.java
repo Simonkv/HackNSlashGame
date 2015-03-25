@@ -11,10 +11,20 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel{
 	
-	public static final int SCREEN_WIDTH = 300;
-	public static final int SCREEN_HEIGHT = 300;
-	public static final int SLEEP_TIME = 10;
+	public static final int SCREEN_WIDTH = 700;
+	public static final int SCREEN_HEIGHT = 700;
+	public static int SLEEP_TIME = 100;
 	public static boolean running = true;
+	
+	FPScalculator FPS = new FPScalculator(this);
+	
+	public void startTimer(){
+		FPS.startTimer();
+	}
+	public void endTimer(){
+		FPS.endTimer();
+		SLEEP_TIME=FPS.getSleepTime();
+	}
 	
 	public void update(){
 		
@@ -25,7 +35,15 @@ public class GamePanel extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		//otherClass.paint(g2d);
+		
+		
+		
+		
+		FPS.paint(g2d);
+		
 	}
+	
+	
 	
 	
 	public static void main(String[] args) {
@@ -37,8 +55,12 @@ public class GamePanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		while(running){
-			//game.update();
-			//game.repaint();
+			game.startTimer();
+			
+			game.update();
+			game.repaint();
+			
+			game.endTimer();
 			try{
 				Thread.sleep(SLEEP_TIME);
 			}catch(InterruptedException e){
