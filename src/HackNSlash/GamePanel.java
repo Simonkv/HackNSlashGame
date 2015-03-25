@@ -17,6 +17,7 @@ public class GamePanel extends JPanel{
 	public static boolean running = true;
 	
 	FPScalculator FPS = new FPScalculator(this);
+	Arena arena = new Arena(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -35,6 +36,7 @@ public class GamePanel extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		//otherClass.paint(g2d);
+		arena.paint(g2d);
 		
 		
 		
@@ -52,6 +54,7 @@ public class GamePanel extends JPanel{
 		frame.add(game);
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		while(running){
