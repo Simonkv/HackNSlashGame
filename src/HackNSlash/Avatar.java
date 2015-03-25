@@ -19,19 +19,19 @@ public abstract class Avatar {
 	protected boolean monsterDamage;
 	
 	
-	public abstract void setName(String NAME);
+	public abstract void setName();
 	
 	public String getName(){
 		return name;
 	}
 	
-	public abstract void setPlayable(boolean PLAYABLE);
+	public abstract void setPlayable();
 	
 	public boolean getPlayable(){
 		return playable;
 	}
 	
-	public abstract void setHealth(int HEALTH);
+	public abstract void setHealth();
 	
 	public abstract void reduceHealth(int DMG_TAKEN);
 	
@@ -57,19 +57,19 @@ public abstract class Avatar {
 		return yPos;
 	}
 	
-	public abstract void setAttackSpeed(int ATTACKSPEED);
+	public abstract void setAttackSpeed();
 	
 	public int getAttackSpeed(){
 		return attackSpeed;
 	}
 	
-	public abstract void setDamage(int DAMAGE);
+	public abstract void setDamage();
 	
 	public int getDamage(){
 		return dmg;
 	}
 	
-	public abstract void setScore(int SCORE);
+	public abstract void setScore();
 	
 	public int getScore(){
 		return score;
@@ -87,7 +87,7 @@ public abstract class Avatar {
 		return takeDamage;
 	}
 	
-	public abstract void setRanged(boolean RANGED);
+	public abstract void setRanged();
 	
 	public boolean getRanged(){
 		return ranged;

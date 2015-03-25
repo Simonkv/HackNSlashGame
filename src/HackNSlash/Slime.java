@@ -5,19 +5,18 @@ import java.awt.Graphics2D;
 public class Slime extends Avatar {
 
 	@Override
-	public void setName(String NAME) {
+	public void setName() {
+		this.name = "Slime";
+	}
+
+	@Override
+	public void setPlayable() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setPlayable(boolean PLAYABLE) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setHealth(int HEALTH) {
+	public void setHealth() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -47,19 +46,19 @@ public class Slime extends Avatar {
 	}
 
 	@Override
-	public void setAttackSpeed(int ATTACKSPEED) {
+	public void setAttackSpeed() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setDamage(int DAMAGE) {
+	public void setDamage() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setScore(int SCORE) {
+	public void setScore() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -77,7 +76,7 @@ public class Slime extends Avatar {
 	}
 
 	@Override
-	public void setRanged(boolean RANGED) {
+	public void setRanged() {
 		// TODO Auto-generated method stub
 		
 	}
