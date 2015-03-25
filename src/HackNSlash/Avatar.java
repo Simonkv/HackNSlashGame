@@ -1,4 +1,6 @@
-package HackNSlash;
+package avatar;
+
+import java.awt.Graphics2D;
 
 public abstract class Avatar {
 
@@ -12,6 +14,9 @@ public abstract class Avatar {
 	protected int dir;
 	protected boolean dealDamage;
 	protected boolean ranged;
+	protected boolean playable;
+	protected boolean takeDamage;
+	protected boolean monsterDamage;
 	
 	
 	public abstract void setName();
@@ -20,23 +25,29 @@ public abstract class Avatar {
 		return name;
 	}
 	
+	public abstract void setPlayable();
+	
+	public boolean getPlayable(){
+		return playable;
+	}
+	
 	public abstract void setHealth();
 	
-	public abstract void reduceHealth();
+	public abstract void reduceHealth(int DMG_TAKEN);
 	
 	public int getHealth(){
 		return health;
 	}
 	
-	public abstract void setDirection();
+	public abstract void setDirection(int DIRECTION);
 	
 	public int getDirection(){
 		return dir;
 	}
 	
-	public abstract void setXPosition();
+	public abstract void setXPosition(int XPOS);
 	
-	public abstract void setYPosition();
+	public abstract void setYPosition(int YPOS);
 	
 	public int getXPosition(){
 		return xPos;
@@ -64,10 +75,16 @@ public abstract class Avatar {
 		return score;
 	}
 	
-	public abstract void setDealDamage();
+	public abstract void setDealDamage(boolean DEAL_DAMAGE);
 	
 	public boolean getDealDamage(){
 		return dealDamage;
+	}
+	
+	public abstract void setTakeDamage(boolean TAKE_DAMAGE);
+	
+	public boolean getTakeDamage(){
+		return takeDamage;
 	}
 	
 	public abstract void setRanged();
@@ -76,10 +93,24 @@ public abstract class Avatar {
 		return ranged;
 	}
 	
-	public abstract void move();
+	//Call this every time a class is initialized!
+	public void setMonsterDamage(){
+		if (playable == true){
+			monsterDamage = true;
+		}
+		else {
+			monsterDamage = false;
+		}
+	}
 	
-	public abstract void attack();
+	public boolean getMonsterDamage(){
+		return monsterDamage;
+	}
 	
-	public abstract void draw();
+	public abstract void move(int X, int Y);
+	
+	public abstract void attack(int ATTACKTYPE);
+	
+	public abstract void paint(Graphics2D g);
 	
 }

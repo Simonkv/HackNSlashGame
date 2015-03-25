@@ -1,13 +1,20 @@
-package HackNSlash;
+package avatar;
+
+import java.awt.Graphics2D;
 
 public class Slime extends Avatar {
 
 	@Override
 	public void setName() {
+		this.name = "Slime";
+	}
+
+	@Override
+	public void setPlayable() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	@Override
 	public void setHealth() {
 		// TODO Auto-generated method stub
@@ -15,25 +22,25 @@ public class Slime extends Avatar {
 	}
 
 	@Override
-	public void reduceHealth() {
+	public void reduceHealth(int DMG_TAKEN) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setDirection() {
+	public void setDirection(int DIRECTION) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setXPosition() {
+	public void setXPosition(int XPOS) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setYPosition() {
+	public void setYPosition(int YPOS) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -57,7 +64,13 @@ public class Slime extends Avatar {
 	}
 
 	@Override
-	public void setDealDamage() {
+	public void setDealDamage(boolean DEAL_DAMAGE) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTakeDamage(boolean TAKE_DAMAGE) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -69,21 +82,22 @@ public class Slime extends Avatar {
 	}
 
 	@Override
-	public void move() {
+	public void move(int X, int Y) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void attack() {
+	public void attack(int ATTACKTYPE) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void draw() {
+	public void paint(Graphics2D g) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
