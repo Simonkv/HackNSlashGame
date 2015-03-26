@@ -19,6 +19,7 @@ public class GamePanel extends JPanel{
 	FPScalculator FPS = new FPScalculator(this);
 	Arena arena = new Arena(this);
 	Warrior player = new Warrior(this,500,500);
+	Menu menu = new Menu(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel{
 		//otherClass.paint(g2d);
 		arena.paint(g2d);
 		player.paint(g2d);
-		
+		//menu.paint(g2d);
 		
 		
 		FPS.paint(g2d);
