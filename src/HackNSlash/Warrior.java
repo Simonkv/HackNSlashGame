@@ -16,8 +16,8 @@ public class Warrior extends Avatar {
 	private int ySpeed=0;
 	private int xSpeed=0;
 	
-	private int acceleration = 1;
-	private int maxSpeed = 8;
+	private int acceleration = 2;
+	private int maxSpeed = 10;
 	
 	public int playerSize = 80;
 	Rectangle2D.Double player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
@@ -65,25 +65,38 @@ public class Warrior extends Avatar {
 	public void checkIntersecting(){
 		if(player.intersects(panel.arena.rightWall)){
 			walkRight=false;
+			xSpeed=0;
 		}
 		if(player.intersects(panel.arena.leftWall)){
 			walkLeft=false;
+			xSpeed=0;
 		}
 		if(player.intersects(panel.arena.bottomWall)){
 			walkDown=false;
+			ySpeed=0;
 		}
 		if(player.intersects(panel.arena.topWall)){
 			walkUp=false;
+			ySpeed=0;
+		}
+	}
+	
+	public int goToZero(int speed){
+		if(speed>0){
+			return -1;
+		}else if(speed<0){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 	
 	public void move(){
 		if(!walkRight && !walkLeft){
-			xSpeed=0;
+			xSpeed+=goToZero(xSpeed);
 		}
 		if(!walkUp && !walkDown){
-			ySpeed=0;
-			
+			ySpeed+=goToZero(ySpeed);
 		}
 		if(walkUp){
 			ySpeed-=acceleration;
