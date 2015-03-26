@@ -18,6 +18,7 @@ public class GamePanel extends JPanel{
 	
 	FPScalculator FPS = new FPScalculator(this);
 	Arena arena = new Arena(this);
+	Warrior player = new Warrior(this,500,500);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void update(){
+		player.update();
 		
 	}
 	
@@ -37,7 +39,7 @@ public class GamePanel extends JPanel{
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		//otherClass.paint(g2d);
 		arena.paint(g2d);
-		
+		player.paint(g2d);
 		
 		
 		
@@ -84,6 +86,18 @@ public class GamePanel extends JPanel{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+					player.leftPressed();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+					player.rightPressed();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_UP){
+					player.upPressed();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_DOWN){
+					player.downPressed();
+				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen
 			}
 
@@ -91,7 +105,18 @@ public class GamePanel extends JPanel{
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
 				//annaClass.keyReleased(e); sender tasteslipp til den classen
-
+				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+					player.leftReleased();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+					player.rightReleased();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_UP){
+					player.upReleased();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_DOWN){
+					player.downReleased();
+				}
 			}
 			
 			

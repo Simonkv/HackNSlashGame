@@ -1,9 +1,100 @@
-package avatar;
+package HackNSlash;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
 public class Warrior extends Avatar {
-
+	
+	public GamePanel panel;
+	
+	private boolean walkUp = false;
+	private boolean walkDown = false;
+	private boolean walkLeft = false;
+	private boolean walkRight = false;
+	
+	public int ySpeed=0;
+	public int xSpeed=0;
+	
+	public int acceleration = 1;
+	public int maxSpeed = 8;
+	
+	public int playerSize = 80;
+	Rectangle2D.Double player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
+	
+	public Warrior(GamePanel panel,int xPos, int yPos){
+		this.xPos = xPos;
+		this.yPos = yPos;
+		this.panel = panel;
+	}
+	
+	public void leftPressed(){
+		walkLeft=true;
+	}
+	public void leftReleased(){
+		walkLeft=false;
+	}
+	public void rightPressed(){
+		walkRight=true;
+	}
+	public void rightReleased(){
+		walkRight=false;
+	}
+	public void upPressed(){
+		walkUp=true;
+	}
+	public void upReleased(){
+		walkUp=false;
+	}
+	public void downPressed(){
+		walkDown=true;
+	}
+	public void downReleased(){
+		walkDown=false;
+	}
+	
+	
+	public void update(){
+		move();
+		yPos+=ySpeed;
+		xPos+=xSpeed;
+		player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
+	}
+	
+	public void move(){
+		if(!walkRight && !walkLeft){
+			xSpeed=0;
+		}
+		if(!walkUp && !walkDown){
+			ySpeed=0;
+			
+		}
+		if(walkUp){
+			ySpeed-=acceleration;
+			if(ySpeed<-maxSpeed){
+				ySpeed=-maxSpeed;
+			}
+		}else if(walkDown){
+			ySpeed+=acceleration;
+			if(ySpeed>maxSpeed){
+				ySpeed=maxSpeed;
+			}
+		}
+		if(walkLeft){
+			xSpeed-=acceleration;
+			if(xSpeed<-maxSpeed){
+				xSpeed=-maxSpeed;
+			}
+		}else if(walkRight){
+			xSpeed+=acceleration;
+			if(xSpeed>maxSpeed){
+				xSpeed=maxSpeed;
+			}
+		}
+	}
+	
+	
+	
 	@Override
 	public void setName() {
 		this.name = "Warrior";
@@ -97,6 +188,8 @@ public class Warrior extends Avatar {
 	@Override
 	public void paint(Graphics2D g) {
 		// TODO Auto-generated method stub
+		g.setColor(Color.BLACK);
+		g.fill(player);
 		
 	}
 

@@ -1,4 +1,4 @@
-package avatar;
+package HackNSlash;
 
 import java.awt.Graphics2D;
 
