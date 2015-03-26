@@ -12,6 +12,7 @@ public abstract class Avatar {
 	protected int xPos;
 	protected int yPos;
 	protected int dir;
+	protected int movementSpeed;
 	protected boolean dealDamage;
 	protected boolean ranged;
 	protected boolean playable;
@@ -61,6 +62,12 @@ public abstract class Avatar {
 	
 	public int getAttackSpeed(){
 		return attackSpeed;
+	}
+	
+	public abstract void setMovementSpeed();
+	
+	public int getMovementSpeed(){
+		return movementSpeed;
 	}
 	
 	public abstract void setDamage();

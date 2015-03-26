@@ -102,5 +102,11 @@ public class Goblin extends Avatar{
 		
 	}
 
+	@Override
+	public void setMovementSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
