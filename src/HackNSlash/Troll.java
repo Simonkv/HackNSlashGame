@@ -100,6 +100,12 @@ public class Troll extends Avatar{
 		
 	}
 
+	@Override
+	public void setMovementSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
