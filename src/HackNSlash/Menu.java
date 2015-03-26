@@ -4,25 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.JFrame;
 
-@SuppressWarnings("serial")
-public class Menu extends JFrame{
+public class Menu{
 	@SuppressWarnings("unused")
 	private GamePanel menuScreen;
-	private boolean menuOperational;
+	private int positionTracker = 0;
 	
 	public Menu(GamePanel menu){
 		this.menuScreen = menu;
-		setMenuOperational(true);
 	}
 	
-	public void setMenuOperational(boolean menu){
-		this.menuOperational = menu;
+	public void setPositionTracker(String s){
+		if (s.equals("UP") && positionTracker!=0){
+			this.positionTracker -= 1 ;
+		}
+		else if (s.equals("DOWN") && positionTracker!=2){
+			this.positionTracker += 1 ;
+		}
 	}
 	
-	public boolean getMenuOperational(){
-		return menuOperational;
+	public int getPositionTracker(){
+		return positionTracker;
 	}
 	
 	public void paint(Graphics2D g){
