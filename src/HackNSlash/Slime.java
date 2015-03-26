@@ -81,11 +81,7 @@ public class Slime extends Avatar {
 		
 	}
 
-	@Override
-	public void move(int X, int Y) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void attack(int ATTACKTYPE) {
@@ -95,6 +91,12 @@ public class Slime extends Avatar {
 
 	@Override
 	public void paint(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -13,11 +13,11 @@ public class Warrior extends Avatar {
 	private boolean walkLeft = false;
 	private boolean walkRight = false;
 	
-	public int ySpeed=0;
-	public int xSpeed=0;
+	private int ySpeed=0;
+	private int xSpeed=0;
 	
-	public int acceleration = 1;
-	public int maxSpeed = 8;
+	private int acceleration = 1;
+	private int maxSpeed = 8;
 	
 	public int playerSize = 80;
 	Rectangle2D.Double player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
@@ -55,6 +55,14 @@ public class Warrior extends Avatar {
 	
 	
 	public void update(){
+		checkIntersecting();
+		move();
+		yPos+=ySpeed;
+		xPos+=xSpeed;
+		player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
+	}
+	
+	public void checkIntersecting(){
 		if(player.intersects(panel.arena.rightWall)){
 			walkRight=false;
 		}
@@ -67,14 +75,9 @@ public class Warrior extends Avatar {
 		if(player.intersects(panel.arena.topWall)){
 			walkUp=false;
 		}
-		move();
-		yPos+=ySpeed;
-		xPos+=xSpeed;
-		player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
 	}
 	
 	public void move(){
-		
 		if(!walkRight && !walkLeft){
 			xSpeed=0;
 		}
@@ -186,11 +189,6 @@ public class Warrior extends Avatar {
 		
 	}
 
-	@Override
-	public void move(int X, int Y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void attack(int ATTACKTYPE) {
