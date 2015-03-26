@@ -55,6 +55,18 @@ public class Warrior extends Avatar {
 	
 	
 	public void update(){
+		if(player.intersects(panel.arena.rightWall)){
+			walkRight=false;
+		}
+		if(player.intersects(panel.arena.leftWall)){
+			walkLeft=false;
+		}
+		if(player.intersects(panel.arena.bottomWall)){
+			walkDown=false;
+		}
+		if(player.intersects(panel.arena.topWall)){
+			walkUp=false;
+		}
 		move();
 		yPos+=ySpeed;
 		xPos+=xSpeed;
@@ -62,6 +74,7 @@ public class Warrior extends Avatar {
 	}
 	
 	public void move(){
+		
 		if(!walkRight && !walkLeft){
 			xSpeed=0;
 		}

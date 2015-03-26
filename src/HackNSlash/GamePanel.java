@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel{
 	
-	public static final int SCREEN_WIDTH = 700;
+	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 700;
 	public static int SLEEP_TIME = 100;
 	public static boolean running = true;
