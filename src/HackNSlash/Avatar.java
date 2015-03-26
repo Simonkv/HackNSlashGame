@@ -1,4 +1,4 @@
-package avatar;
+package HackNSlash;
 
 import java.awt.Graphics2D;
 
@@ -107,7 +107,7 @@ public abstract class Avatar {
 		return monsterDamage;
 	}
 	
-	public abstract void move(int X, int Y);
+	public abstract void move();
 	
 	public abstract void attack(int ATTACKTYPE);
 	
