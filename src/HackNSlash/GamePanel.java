@@ -118,6 +118,12 @@ public class GamePanel extends JPanel{
 				if(e.getKeyCode() == KeyEvent.VK_DOWN){
 					player.downReleased();
 				}
+				if(e.getKeyCode() == KeyEvent.VK_Z){
+					player.attack(1);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_X){
+					player.attack(2);
+				}
 			}
 			
 			
