@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel{
 	
 	public static final int SCREEN_WIDTH = 1200;
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel{
 	Arena arena = new Arena(this);
 	Warrior player = new Warrior(this,500,500);
 	Menu menu = new Menu(this);
+	Slime slime = new Slime(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -31,6 +33,7 @@ public class GamePanel extends JPanel{
 	
 	public void update(){
 		player.update();
+		slime.update();
 		
 	}
 	
@@ -40,6 +43,7 @@ public class GamePanel extends JPanel{
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		//otherClass.paint(g2d);
 		arena.paint(g2d);
+		slime.paint(g2d);
 		player.paint(g2d);
 		//menu.paint(g2d);
 		
@@ -52,7 +56,7 @@ public class GamePanel extends JPanel{
 	
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Hack N Slach");
+		JFrame frame = new JFrame("Hack N Slash");
 		GamePanel game = new GamePanel();
 		frame.add(game);
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -117,6 +121,12 @@ public class GamePanel extends JPanel{
 				}
 				if(e.getKeyCode() == KeyEvent.VK_DOWN){
 					player.downReleased();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_Z){
+					player.attack(1);
+				}
+				if(e.getKeyCode() == KeyEvent.VK_X){
+					player.attack(2);
 				}
 			}
 			
