@@ -20,6 +20,7 @@ public class GamePanel extends JPanel{
 	Arena arena = new Arena(this);
 	Warrior player = new Warrior(this,500,500);
 	Menu menu = new Menu(this);
+	Boss boss = new Boss(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel{
 	
 	public void update(){
 		player.update();
+		boss.update();
 		
 	}
 	
@@ -42,7 +44,7 @@ public class GamePanel extends JPanel{
 		arena.paint(g2d);
 		player.paint(g2d);
 		//menu.paint(g2d);
-		
+		boss.paint(g2d);
 		
 		FPS.paint(g2d);
 		
