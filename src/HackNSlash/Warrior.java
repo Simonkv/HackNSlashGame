@@ -44,6 +44,38 @@ public class Warrior extends Avatar {
 	
 
 	
+	
+	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
+	private int health = 100;
+	private double healthbarWidthCalc = health * 5.88;
+	private int healthbarWidth = (int) healthbarWidthCalc;
+
+	private int healthbarFrameWidth = panel.SCREEN_WIDTH/2; //600
+	private int healthbarFrameHeight = 40; //25
+	private int healthbarFrameXPos = panel.SCREEN_WIDTH/4; //300
+	private int healthbarFrameYPos = panel.SCREEN_HEIGHT-(43+healthbarFrameHeight); //625
+	Rectangle2D.Double healthbarFrame = new Rectangle2D.Double(healthbarFrameXPos, healthbarFrameYPos, healthbarFrameWidth, healthbarFrameHeight);
+
+	private int healthbarBackgroundXPos = healthbarFrameXPos + 5; //305
+	private int healthbarBackgroundYPos = healthbarFrameYPos + 5; //630
+	private int healthbarBackgroundWidth = healthbarFrameWidth - 10; //590
+	private int healthbarBackgroundHeight = healthbarFrameHeight - 10; //15
+	Rectangle2D.Double healthbarBackground = new Rectangle2D.Double(healthbarBackgroundXPos, healthbarBackgroundYPos, healthbarBackgroundWidth, healthbarBackgroundHeight);
+
+	private int healthbarValueXPos = healthbarBackgroundXPos + 1; //306
+	private int healthbarValueYPos = healthbarBackgroundYPos + 1; //631
+	private int healthbarValueWidth = healthbarWidth;
+	private int healthbarValueHeight = healthbarBackgroundHeight -2; //13
+	Rectangle2D.Double healthbarValue = new Rectangle2D.Double(healthbarValueXPos, healthbarValueYPos, healthbarValueWidth, healthbarValueHeight);
+
+	private void updateHealthbar(){                    
+	        healthbarWidthCalc = health * 5.88;
+	        healthbarValueWidth = (int) healthbarWidthCalc;
+	        healthbarValue = new Rectangle2D.Double(healthbarValueXPos, healthbarValueYPos, healthbarValueWidth, healthbarValueHeight);
+	}
+
+	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
+	
 	public Warrior(GamePanel panel,int xPos, int yPos){
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -194,8 +226,11 @@ public class Warrior extends Avatar {
 
 	@Override
 	public void reduceHealth(int DMG_TAKEN) {
-		// TODO Auto-generated method stub
-		
+	        this.health = health - DMG_TAKEN;
+	}
+
+	public void gainHealth(){
+	        this.health = 100;
 	}
 
 	@Override
@@ -320,6 +355,15 @@ public class Warrior extends Avatar {
 		g.fill(player);
 		g.fill(attack1);
 		g.fill(attack2);
+		
+		//JOACHIM
+		g.setColor(Color.ORANGE);
+        g.fill(healthbarFrame);
+        g.setColor(Color.darkGray);
+        g.fill(healthbarBackground);
+        g.setColor(Color.RED);
+        g.fill(healthbarValue);
+        g.setColor(Color.BLACK);
 		
 	}
 

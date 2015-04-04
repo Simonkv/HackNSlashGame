@@ -1,5 +1,6 @@
 package HackNSlash;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
@@ -39,14 +40,14 @@ public class Boss{
 	
 	//**************GAREN SPIN TO WIN**************
 	private int X_SPEED = 30;
-	private int Y_SPEED = 12;
+	private int Y_SPEED = 15;
 	private int xSpeed = 30;
 	private int ySpeed = 12;
 	//***********************************************
 	
 	//**************SHOOT BALLS!**************
 	private long shootStartTimer;
-	private long howLongShouldIShoot = 1000;
+	private long howLongShouldIShoot = 1400;
 	private boolean gottenYPos = false;
 	private int yToGoTo;
 	private boolean atYPos = false;
@@ -107,24 +108,28 @@ public class Boss{
 	
 	public void update(){
 		//HARDKODA BOSS STATE!!!
-		
 		if(System.currentTimeMillis()-startTimer<=5000){
-			doXerathUlt();
+			
 		}
 		else if(System.currentTimeMillis()-startTimer<=10000){
+			doXerathUlt();
+		}
+		else if(System.currentTimeMillis()-startTimer<=17000){
 			stopXerathUlt();
 			shootBalls();
-		}else if(System.currentTimeMillis()-startTimer<=15000){
+		}else if(System.currentTimeMillis()-startTimer<=24000){
 			stopShootBalls();
 			doXerathUlt();
 			
-		}else if(System.currentTimeMillis()-startTimer<=20000){
+		}else if(System.currentTimeMillis()-startTimer<=31000){
 			stopXerathUlt();
 			doSpinToWin();
 		}
-		else{
+		else if(System.currentTimeMillis()-startTimer<=38000){
 			doSpinToWin();
 			doXerathUlt();
+		}else{
+			startTimer=System.currentTimeMillis();
 		}
 		
 		
@@ -185,7 +190,9 @@ public class Boss{
 	
 	public void paint(Graphics2D g){
 		g.fill(bossRectangle);
+		g.setColor(Color.RED);
 		g.fill(xerathUlt);
+		g.setColor(Color.BLACK);
 		g.fill(leftShot);
 		g.fill(rightShot);
 	}

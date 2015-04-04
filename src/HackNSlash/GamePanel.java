@@ -21,6 +21,7 @@ public class GamePanel extends JPanel{
 	Warrior player = new Warrior(this,500,500);
 	Menu menu = new Menu(this);
 	Boss boss = new Boss(this);
+	WaveTimer waveTimer = new WaveTimer(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -33,6 +34,7 @@ public class GamePanel extends JPanel{
 	public void update(){
 		player.update();
 		boss.update();
+		waveTimer.update();
 		
 	}
 	
@@ -45,6 +47,8 @@ public class GamePanel extends JPanel{
 		player.paint(g2d);
 		//menu.paint(g2d);
 		boss.paint(g2d);
+		waveTimer.paint(g2d);
+		
 		
 		FPS.paint(g2d);
 		
