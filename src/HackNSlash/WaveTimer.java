@@ -10,7 +10,8 @@ import java.awt.geom.Rectangle2D;
 public class WaveTimer {
 
 public GamePanel panel;
-private long startTime = System.currentTimeMillis();
+private boolean started=false;
+private long startTime;
 private String timerString;
 private String timeText = "Time:";
 
@@ -26,6 +27,10 @@ public WaveTimer(GamePanel panel){
 }
 
 public void updateTime(){
+		if(!started){
+			 startTime = System.currentTimeMillis();
+			 started = true;
+		}
         long timerLong = System.currentTimeMillis()-startTime;
         int seconds = (int) (timerLong/1000);
         timerString = Integer.toString(seconds);
