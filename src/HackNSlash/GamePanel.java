@@ -19,9 +19,11 @@ public class GamePanel extends JPanel{
 	
 	FPScalculator FPS = new FPScalculator(this);
 	Arena arena = new Arena(this);
-	Warrior player = new Warrior(this,500,500);
+	Warrior player = new Warrior(this,200,200);
 	Menu menu = new Menu(this);
 	Slime slime = new Slime(this);
+	Goblin goblin = new Goblin(this);
+	Troll troll = new Troll(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -32,8 +34,11 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void update(){
-		player.update();
 		slime.update();
+		goblin.update();
+		troll.update();
+		player.update();
+		
 		
 	}
 	
@@ -44,6 +49,8 @@ public class GamePanel extends JPanel{
 		//otherClass.paint(g2d);
 		arena.paint(g2d);
 		slime.paint(g2d);
+		goblin.paint(g2d);
+		troll.paint(g2d);
 		player.paint(g2d);
 		//menu.paint(g2d);
 		

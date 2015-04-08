@@ -150,8 +150,8 @@ public class Slime extends Avatar implements MonsterAI{
 	@Override
 	public void idle() {
 		// TODO Auto-generated method stub
-		xSpeed = IDLE_SPEED;
-		ySpeed = IDLE_SPEED;
+		xSpeed = SLIME_IDLE_SPEED;
+		ySpeed = SLIME_IDLE_SPEED;
 		
 		int direction = rand.nextInt(200);
 		//System.out.println(direction);
@@ -237,36 +237,36 @@ public class Slime extends Avatar implements MonsterAI{
 	public void aggroed() {
 		if (yPriority){
 			if (!playerYBigger){
-				yPos += -AGGRO_SPEED;
+				yPos += -SLIME_AGGRO_SPEED;
 			}
 			else {
-				yPos += AGGRO_SPEED;
+				yPos += SLIME_AGGRO_SPEED;
 			}
 		}
 		else if (xPriority){
 			if (!playerXBigger){
-				xPos += -AGGRO_SPEED;
+				xPos += -SLIME_AGGRO_SPEED;
 			}
 			else {
-				xPos += AGGRO_SPEED;
+				xPos += SLIME_AGGRO_SPEED;
 			}
 		}
 		else {
 			if (!playerXBigger && !playerYBigger){
-				xPos += -AGGRO_SPEED;
-				yPos += -AGGRO_SPEED;
+				xPos += -SLIME_AGGRO_SPEED;
+				yPos += -SLIME_AGGRO_SPEED;
 			}
 			else if(!playerXBigger && playerYBigger){
-				xPos += -AGGRO_SPEED;
-				yPos += AGGRO_SPEED;
+				xPos += -SLIME_AGGRO_SPEED;
+				yPos += SLIME_AGGRO_SPEED;
 			}
 			else if (playerXBigger && !playerYBigger){
-				xPos += AGGRO_SPEED;
-				yPos += -AGGRO_SPEED;
+				xPos += SLIME_AGGRO_SPEED;
+				yPos += -SLIME_AGGRO_SPEED;
 			}
 			else if (playerXBigger && playerYBigger) {
-				xPos += AGGRO_SPEED;
-				yPos += AGGRO_SPEED;
+				xPos += SLIME_AGGRO_SPEED;
+				yPos += SLIME_AGGRO_SPEED;
 			}
 		}
 	}
