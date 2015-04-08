@@ -1,6 +1,7 @@
 package HackNSlash;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class FPScalculator {
@@ -38,6 +39,7 @@ public class FPScalculator {
 	public void paint(Graphics2D g){
 		String diffString = "FPS: "+Integer.toString(calculateFPS());
 		g.setColor(Color.RED);
+		g.setFont(new Font ("Times New Roman", Font.BOLD, 20));
 		g.drawString(diffString, 10, 15);
 	}
 	
