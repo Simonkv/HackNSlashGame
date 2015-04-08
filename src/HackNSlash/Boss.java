@@ -196,8 +196,7 @@ public class Boss{
 		g.fill(leftShot);
 		g.fill(rightShot);
 	}
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> f789b3a811f38e3e64f32a31b2d8b69b58113cef
+
+
