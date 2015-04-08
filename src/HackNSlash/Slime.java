@@ -31,6 +31,7 @@ public class Slime extends Avatar implements MonsterAI{
 	
 	Rectangle2D.Double slime; 
 	Ellipse2D.Double aggroCircle;
+	Rectangle2D.Double healthbar;
 	
 	Random rand = new Random();
 	
@@ -50,6 +51,7 @@ public class Slime extends Avatar implements MonsterAI{
 		idleTimer();
 		slime = new Rectangle2D.Double(yPos, xPos, SLIME_SIZE, SLIME_SIZE);
 		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-SLIME_SIZE)/2, xPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		healthbar = new Rectangle2D.Double(slime.getX(), slime.getY(), getHealth(), 10);
 		this.panel = panel;
 		setAggro();
 	}
@@ -129,8 +131,11 @@ public class Slime extends Avatar implements MonsterAI{
 		g.setColor(Color.RED);
 		//g.fill(aggroCircle);
 		g.setColor(Color.PINK);
-		g.fill(slime);
-		
+		if (isAlive()){
+			g.fill(slime);
+			g.setColor(Color.RED);
+			g.fill(healthbar);
+		}
 	}
 
 	@Override
@@ -149,7 +154,6 @@ public class Slime extends Avatar implements MonsterAI{
 
 	@Override
 	public void idle() {
-		// TODO Auto-generated method stub
 		xSpeed = SLIME_IDLE_SPEED;
 		ySpeed = SLIME_IDLE_SPEED;
 		
@@ -306,19 +310,100 @@ public class Slime extends Avatar implements MonsterAI{
 		setXPriority();
 		setYPriority();
 		move();
+		knockBack();
+		playerKnockback();
 		//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
 		//System.out.println(playerYBigger + "Y");
 		//System.out.println(playerXBigger + "X");
+		//System.out.println(getHealth());
 		slime = new Rectangle2D.Double(xPos, yPos, SLIME_SIZE, SLIME_SIZE);
+		healthbar = new Rectangle2D.Double(slime.getX(), (slime.getY() - 15), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-SLIME_SIZE)/2, yPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
 	}
 
 	@Override
 	public void knockBack() {
-		// TODO Auto-generated method stub
-		
+		if (isAlive()){
+			if (slime.intersects(panel.player.attack1)){
+				if (yPriority){
+					if (!playerYBigger){
+						if (checkBotWall()){
+							yPos += 0;
+						}
+						else{
+							yPos += (SLIME_SIZE * 3);
+						}
+					}
+					else {
+						if (checkTopWall()){
+							yPos += 0;
+						}
+						else {
+							yPos += -(SLIME_SIZE * 3);	
+						}
+					}
+				}
+				else if (xPriority){
+					if (!playerXBigger){
+						if (checkRightWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += (SLIME_SIZE * 3);
+						}
+					}
+					else {
+						if (checkLeftWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += -(SLIME_SIZE * 3);
+						}
+					}
+				}
+				else {
+					if (!playerXBigger && !playerYBigger){
+						xPos += (SLIME_SIZE * 3);
+						yPos += (SLIME_SIZE * 3);
+					}
+					else if(!playerXBigger && playerYBigger){
+						xPos += (SLIME_SIZE * 3);
+						yPos += -(SLIME_SIZE * 3);
+					}
+					else if (playerXBigger && !playerYBigger){
+						xPos += -(SLIME_SIZE * 3);
+						yPos += (SLIME_SIZE * 3);
+					}
+					else if (playerXBigger && playerYBigger) {
+						xPos += -(SLIME_SIZE * 3);
+						yPos += -(SLIME_SIZE * 3);
+					}
+				}
+				reduceHealth(10);
+			}
+		}
+	}
+	
+	public boolean isAlive(){
+		if (getHealth() != 0){
+			return true;
+		}
+		else {
+			setDealDamage(false);
+			setTakeDamage(false);
+			return false;
+		}
 	}
 
+	public void playerKnockback(){
+		if (getDealDamage()){
+			if (slime.intersects(panel.player.player)){
+				panel.player.iHitYou((int)(slime.getX()+(slime.getWidth()/2)), (int)(slime.getY()+(slime.getHeight()/2)));
+				panel.player.reduceHealth(this.getDamage());
+			}	
+		}
+	}
+	
 	@Override
 	public void setYPriority() {
 		if (getXPosition() +  (SLIME_SIZE/2) > panel.player.getXPosition() && getXPosition() +  (SLIME_SIZE/2) < panel.player.getXPosition()+ panel.player.playerSize){

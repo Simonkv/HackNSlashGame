@@ -74,7 +74,6 @@ public class GamePanel extends JPanel{
 			}else if(waveTimer.seconds<100){
 				boss.paint(g2d);
 			}
-			
 			waveTimer.paint(g2d);
 		}
 		
