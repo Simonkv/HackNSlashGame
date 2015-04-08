@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class GamePanel extends JPanel{
 	
 	
@@ -21,8 +22,11 @@ public class GamePanel extends JPanel{
 	
 	FPScalculator FPS = new FPScalculator(this);
 	Arena arena = new Arena(this);
-	Warrior player = new Warrior(this,500,500);
+	Warrior player = new Warrior(this,200,200);
 	Menu menu = new Menu(this);
+	Slime slime = new Slime(this);
+	Goblin goblin = new Goblin(this);
+	Troll troll = new Troll(this);
 	Boss boss = new Boss(this);
 	WaveTimer waveTimer = new WaveTimer(this);
 	
@@ -43,6 +47,7 @@ public class GamePanel extends JPanel{
 			boss.update();
 			waveTimer.update();
 		}
+		
 		
 	}
 	
@@ -69,7 +74,7 @@ public class GamePanel extends JPanel{
 	
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Hack N Slach");
+		JFrame frame = new JFrame("Hack N Slash");
 		GamePanel game = new GamePanel();
 		frame.add(game);
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);

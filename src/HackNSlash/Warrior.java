@@ -44,7 +44,6 @@ public class Warrior extends Avatar {
 	
 
 	
-	
 	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
 	private int health = 100;
 	private double healthbarWidthCalc = health * 5.88;
@@ -364,7 +363,6 @@ public class Warrior extends Avatar {
         g.setColor(Color.RED);
         g.fill(healthbarValue);
         g.setColor(Color.BLACK);
-		
 	}
 
 
