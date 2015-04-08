@@ -30,6 +30,7 @@ public GamePanel panel;
 	
 	Rectangle2D.Double goblin; 
 	Ellipse2D.Double aggroCircle;
+	Rectangle2D.Double healthbar; 
 	
 	Random rand = new Random();
 	
@@ -48,6 +49,7 @@ public GamePanel panel;
 		
 		idleTimer();
 		goblin = new Rectangle2D.Double(yPos, xPos, GOBLIN_SIZE, GOBLIN_SIZE);
+		healthbar = new Rectangle2D.Double(goblin.getX(), (goblin.getY() - 15), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-GOBLIN_SIZE)/2, xPos-(AGGRO_RANGE-GOBLIN_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
 		this.panel = panel;
 		setAggro();
@@ -128,8 +130,11 @@ public GamePanel panel;
 		g.setColor(Color.RED);
 		//g.fill(aggroCircle);
 		g.setColor(Color.CYAN);
-		g.fill(goblin);
-		
+		if (isAlive()){
+			g.fill(goblin);
+			g.setColor(Color.RED);
+			g.fill(healthbar);
+		}
 	}
 
 	@Override
@@ -305,17 +310,97 @@ public GamePanel panel;
 		setXPriority();
 		setYPriority();
 		move();
+		knockBack();
+		playerKnockback();
 		//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
 		//System.out.println(playerYBigger + "Y");
 		//System.out.println(playerXBigger + "X");
 		goblin = new Rectangle2D.Double(xPos, yPos, GOBLIN_SIZE, GOBLIN_SIZE);
+		healthbar = new Rectangle2D.Double(goblin.getX(), (goblin.getY() - 15), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-GOBLIN_SIZE)/2, yPos-(AGGRO_RANGE-GOBLIN_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
 	}
 
 	@Override
 	public void knockBack() {
-		// TODO Auto-generated method stub
-		
+		if (isAlive()){
+			if (goblin.intersects(panel.player.attack1)){
+				if (yPriority){
+					if (!playerYBigger){
+						if (checkBotWall()){
+							yPos += 0;
+						}
+						else{
+							yPos += (GOBLIN_SIZE);
+						}
+					}
+					else {
+						if (checkTopWall()){
+							yPos += 0;
+						}
+						else {
+							yPos += -(GOBLIN_SIZE);	
+						}
+					}
+				}
+				else if (xPriority){
+					if (!playerXBigger){
+						if (checkRightWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += (GOBLIN_SIZE);
+						}
+					}
+					else {
+						if (checkLeftWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += -(GOBLIN_SIZE);
+						}
+					}
+				}
+				else {
+					if (!playerXBigger && !playerYBigger){
+						xPos += (GOBLIN_SIZE);
+						yPos += (GOBLIN_SIZE);
+					}
+					else if(!playerXBigger && playerYBigger){
+						xPos += (GOBLIN_SIZE);
+						yPos += -(GOBLIN_SIZE);
+					}
+					else if (playerXBigger && !playerYBigger){
+						xPos += -(GOBLIN_SIZE);
+						yPos += (GOBLIN_SIZE);
+					}
+					else if (playerXBigger && playerYBigger) {
+						xPos += -(GOBLIN_SIZE);
+						yPos += -(GOBLIN_SIZE);
+					}
+				}
+				reduceHealth(10);
+			}
+		}
+	}
+	
+	public boolean isAlive(){
+		if (getHealth() != 0){
+			return true;
+		}
+		else {
+			setDealDamage(false);
+			setTakeDamage(false);
+			return false;
+		}
+	}
+	
+	public void playerKnockback(){
+		if (getDealDamage()){
+			if (goblin.intersects(panel.player.player)){
+				panel.player.iHitYou((int)(goblin.getX()+(goblin.getWidth()/2)), (int)(goblin.getY()+(goblin.getHeight()/2)));
+				panel.player.reduceHealth(this.getDamage());
+			}	
+		}
 	}
 
 	@Override

@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel{
 	
+	
+	public int gameState = 1;
+	
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 700;
 	public static int SLEEP_TIME = 100;
@@ -24,6 +27,8 @@ public class GamePanel extends JPanel{
 	Slime slime = new Slime(this);
 	Goblin goblin = new Goblin(this);
 	Troll troll = new Troll(this);
+	Boss boss = new Boss(this);
+	WaveTimer waveTimer = new WaveTimer(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -34,10 +39,17 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void update(){
-		slime.update();
-		goblin.update();
-		troll.update();
-		player.update();
+		if(gameState==1){
+			menu.update();
+		}
+		else if(gameState==2){
+			player.update();
+			slime.update();
+			goblin.update();
+			troll.update();
+			//boss.update();
+			waveTimer.update();
+		}
 		
 		
 	}
@@ -46,13 +58,18 @@ public class GamePanel extends JPanel{
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		//otherClass.paint(g2d);
-		arena.paint(g2d);
-		slime.paint(g2d);
-		goblin.paint(g2d);
-		troll.paint(g2d);
-		player.paint(g2d);
-		//menu.paint(g2d);
+		if(gameState==1){
+			menu.paint(g2d);
+		}
+		else if(gameState==2){
+			arena.paint(g2d);
+			slime.paint(g2d);
+			goblin.paint(g2d);
+			troll.paint(g2d);
+			player.paint(g2d);
+			//boss.paint(g2d);
+			waveTimer.paint(g2d);
+		}
 		
 		
 		FPS.paint(g2d);
@@ -99,16 +116,33 @@ public class GamePanel extends JPanel{
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
-					player.leftPressed();
+					if(gameState==2){
+						player.leftPressed();
+					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-					player.rightPressed();
+					if(gameState==2){
+						player.rightPressed();
+					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_UP){
-					player.upPressed();
+					if(gameState==1){
+						menu.setPositionTracker("UP");
+					}else if(gameState==2){
+						player.upPressed();
+					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_DOWN){
-					player.downPressed();
+					if(gameState==1){
+						menu.setPositionTracker("DOWN");
+					}else if(gameState==2){
+						player.downPressed();
+					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					if(gameState==1){
+						menu.enter();
+					}
 				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen
 			}

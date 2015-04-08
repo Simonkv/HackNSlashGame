@@ -42,7 +42,43 @@ public class Warrior extends Avatar {
 	Rectangle2D.Double attack1 = new Rectangle2D.Double(-1000,-1000,10,10);
 	Ellipse2D.Double attack2 = new Ellipse2D.Double(-1000,-1000,10,10);
 	
+	private long lastTookDamage = System.currentTimeMillis();
+	private long takeDamageCooldown = 1000;
+	
+	private int knockbackSpeed = 20;
+	
 
+	
+	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
+	private int health = 100;
+	private double healthbarWidthCalc = health * 5.88;
+	private int healthbarWidth = (int) healthbarWidthCalc;
+
+	private int healthbarFrameWidth = panel.SCREEN_WIDTH/2; //600
+	private int healthbarFrameHeight = 40; //25
+	private int healthbarFrameXPos = panel.SCREEN_WIDTH/4; //300
+	private int healthbarFrameYPos = panel.SCREEN_HEIGHT-(43+healthbarFrameHeight); //625
+	Rectangle2D.Double healthbarFrame = new Rectangle2D.Double(healthbarFrameXPos, healthbarFrameYPos, healthbarFrameWidth, healthbarFrameHeight);
+
+	private int healthbarBackgroundXPos = healthbarFrameXPos + 5; //305
+	private int healthbarBackgroundYPos = healthbarFrameYPos + 5; //630
+	private int healthbarBackgroundWidth = healthbarFrameWidth - 10; //590
+	private int healthbarBackgroundHeight = healthbarFrameHeight - 10; //15
+	Rectangle2D.Double healthbarBackground = new Rectangle2D.Double(healthbarBackgroundXPos, healthbarBackgroundYPos, healthbarBackgroundWidth, healthbarBackgroundHeight);
+
+	private int healthbarValueXPos = healthbarBackgroundXPos + 1; //306
+	private int healthbarValueYPos = healthbarBackgroundYPos + 1; //631
+	private int healthbarValueWidth = healthbarWidth;
+	private int healthbarValueHeight = healthbarBackgroundHeight -2; //13
+	Rectangle2D.Double healthbarValue = new Rectangle2D.Double(healthbarValueXPos, healthbarValueYPos, healthbarValueWidth, healthbarValueHeight);
+
+	private void updateHealthbar(){                    
+	        healthbarWidthCalc = health * 5.88;
+	        healthbarValueWidth = (int) healthbarWidthCalc;
+	        healthbarValue = new Rectangle2D.Double(healthbarValueXPos, healthbarValueYPos, healthbarValueWidth, healthbarValueHeight);
+	}
+
+	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
 	
 	public Warrior(GamePanel panel,int xPos, int yPos){
 		this.xPos = xPos;
@@ -79,6 +115,7 @@ public class Warrior extends Avatar {
 	public void update(){
 		//System.out.println("UP: "+faceUp+"\nDOWN: "+faceDown+"\nLEFT: "+faceLeft+"\nRIGHT: "+faceRight);
 		checkIntersecting();
+		updateHealthbar();
 		move();
 		whereToFace();
 		turnOffAttack();
@@ -194,8 +231,14 @@ public class Warrior extends Avatar {
 
 	@Override
 	public void reduceHealth(int DMG_TAKEN) {
-		// TODO Auto-generated method stub
-		
+		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
+	        this.health = health - DMG_TAKEN;
+	        lastTookDamage = System.currentTimeMillis();
+		}
+	}
+
+	public void gainHealth(){
+	        this.health = 100;
 	}
 
 	@Override
@@ -312,7 +355,27 @@ public class Warrior extends Avatar {
 		}
 		
 	}
+	
+	public void iHitYou(int x, int y){
+		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
+			int middleX = xPos+(playerSize/2);
+			int middleY = yPos+(playerSize/2);
+			//POSISJONEN SOM GIES SKAL VÆRE MIDTEN AV MONSTERET!
+			if(x<middleX && (y>yPos && y<yPos+playerSize)){
+				xSpeed+=knockbackSpeed;
+			}else if(x>middleX && (y>yPos && y<yPos+playerSize)){
+				xSpeed-=knockbackSpeed;
+			}else if(y<middleY && (x>xPos && x<xPos+playerSize)){
+				ySpeed+=knockbackSpeed;
+			}else if(y>middleY && (x>xPos && x<xPos+playerSize)){
+				ySpeed-=knockbackSpeed;
+			}
+		}
+		
+	}
 
+	
+	
 	@Override
 	public void paint(Graphics2D g) {
 		// TODO Auto-generated method stub
@@ -321,6 +384,14 @@ public class Warrior extends Avatar {
 		g.fill(attack1);
 		g.fill(attack2);
 		
+		//JOACHIM
+		g.setColor(Color.ORANGE);
+        g.fill(healthbarFrame);
+        g.setColor(Color.darkGray);
+        g.fill(healthbarBackground);
+        g.setColor(Color.RED);
+        g.fill(healthbarValue);
+        g.setColor(Color.BLACK);
 	}
 
 
