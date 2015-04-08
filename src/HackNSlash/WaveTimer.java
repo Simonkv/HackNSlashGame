@@ -20,7 +20,7 @@ private int timerFrameHeight = 40;
 private int timerFrameXPos = panel.SCREEN_WIDTH - 180;
 private int timerFrameYPos = 4;
 Rectangle2D.Double timerFrame = new Rectangle2D.Double(timerFrameXPos, timerFrameYPos, timerFrameWidth, timerFrameHeight);
-
+public int seconds;
 
 public WaveTimer(GamePanel panel){
         this.panel = panel;
@@ -32,7 +32,7 @@ public void updateTime(){
 			 started = true;
 		}
         long timerLong = System.currentTimeMillis()-startTime;
-        int seconds = (int) (timerLong/1000);
+        seconds = (int) (timerLong/1000);
         timerString = Integer.toString(seconds);
 
 }
