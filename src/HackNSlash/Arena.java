@@ -13,7 +13,7 @@ public class Arena extends GameMap{
 	Rectangle2D.Double leftWall = new Rectangle2D.Double(0, 0, WALL_THICKNESS, panel.SCREEN_HEIGHT);
 	Rectangle2D.Double topWall = new Rectangle2D.Double(0, 0, panel.SCREEN_WIDTH, WALL_THICKNESS);
 	Rectangle2D.Double rightWall = new Rectangle2D.Double(panel.SCREEN_WIDTH-WALL_THICKNESS, 0, WALL_THICKNESS, panel.SCREEN_HEIGHT);
-	Rectangle2D.Double bottomWall = new Rectangle2D.Double(0, panel.SCREEN_HEIGHT-WALL_THICKNESS,panel.SCREEN_WIDTH, WALL_THICKNESS);
+	Rectangle2D.Double bottomWall = new Rectangle2D.Double(0, panel.SCREEN_HEIGHT-WALL_THICKNESS-50,panel.SCREEN_WIDTH, WALL_THICKNESS+50);
 	
 	public Arena(GamePanel panel){
 		this.panel = panel;
