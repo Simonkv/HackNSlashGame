@@ -14,7 +14,7 @@ public class GamePanel extends JPanel{
 	
 	
 	public int gameState = 1;
-	
+
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 700;
 	public static int SLEEP_TIME = 100;
@@ -29,6 +29,8 @@ public class GamePanel extends JPanel{
 	Troll troll = new Troll(this);
 	Boss boss = new Boss(this);
 	WaveTimer waveTimer = new WaveTimer(this);
+	HighscoreList highscoreList = new HighscoreList(this);
+	GameOver gameOver = new GameOver(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -47,6 +49,12 @@ public class GamePanel extends JPanel{
 			boss.update();
 			waveTimer.update();
 		}
+		else if(gameState==3){
+			highscoreList.update();
+		}
+		else if(gameState==4){
+			gameOver.update();
+		}
 		
 		
 	}
@@ -63,6 +71,12 @@ public class GamePanel extends JPanel{
 			player.paint(g2d);
 			boss.paint(g2d);
 			waveTimer.paint(g2d);
+		}
+		else if(gameState==3){
+			highscoreList.paint(g2d);
+		}
+		else if(gameState==4){
+			gameOver.paint(g2d);
 		}
 		
 		
@@ -112,11 +126,15 @@ public class GamePanel extends JPanel{
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					if(gameState==2){
 						player.leftPressed();
+					}else if(gameState==4){
+						gameOver.setPositionTracker("LEFT");
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 					if(gameState==2){
 						player.rightPressed();
+					}else if(gameState==4){
+						gameOver.setPositionTracker("RIGHT");
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -136,6 +154,18 @@ public class GamePanel extends JPanel{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					if(gameState==1){
 						menu.enter();
+					}else if(gameState==4){
+						gameOver.enter();
+					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+					if(gameState==3){
+						gameState = 1;
+					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+					if(gameState==3){
+						gameState = 1;
 					}
 				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen
@@ -159,9 +189,11 @@ public class GamePanel extends JPanel{
 				}
 				if(e.getKeyCode() == KeyEvent.VK_Z){
 					player.attack(1);
+					highscoreList.addPoints(10);
 				}
 				if(e.getKeyCode() == KeyEvent.VK_X){
 					player.attack(2);
+					player.reduceHealth(20);
 				}
 			}
 			

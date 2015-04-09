@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 public class WaveTimer {
 
 public GamePanel panel;
-private boolean started=false;
+public boolean started=false;
 private long startTime;
 private String timerString;
 private String timeText = "Time:";
