@@ -6,10 +6,15 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
 public class HighscoreList {
 	
 	private GamePanel panel;
+	static Scanner scan = new Scanner(System.in);
 	
 	private int newHighscore;
 	private int bufferScore;
@@ -17,6 +22,33 @@ public class HighscoreList {
 	
 	Rectangle2D.Double background = new Rectangle2D.Double(0, 0, panel.SCREEN_WIDTH, panel.SCREEN_HEIGHT);
 	Rectangle2D.Double HSWall = new Rectangle2D.Double(300, 50, 600, 570);
+	
+	public void loadHighscores(){
+		Scanner in;
+		int counter = 0;
+		try{
+			in = new Scanner(new FileReader("highscores.txt"));
+			while(in.hasNextLine()){
+				highscores.add(counter, Integer.parseInt(in.nextLine()));
+				counter++;
+			}
+			in.close();
+		}
+		catch (FileNotFoundException e){
+	        }
+	}
+	
+	public void save(){
+		try{
+			PrintWriter outFile = new PrintWriter("highscores.txt");
+			for (int i=0; i<10; i++){
+				outFile.println(Integer.toString(highscores.get(i)));
+			}
+	        outFile.close();
+	        }
+		catch (FileNotFoundException e){
+	        }
+	}
 	
 	public HighscoreList(GamePanel panel){
 		this.panel = panel;
