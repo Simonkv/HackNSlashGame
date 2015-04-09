@@ -196,4 +196,7 @@ public class Boss{
 		g.fill(leftShot);
 		g.fill(rightShot);
 	}
+
 }
+
+

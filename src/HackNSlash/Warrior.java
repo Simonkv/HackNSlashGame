@@ -42,6 +42,11 @@ public class Warrior extends Avatar {
 	Rectangle2D.Double attack1 = new Rectangle2D.Double(-1000,-1000,10,10);
 	Ellipse2D.Double attack2 = new Ellipse2D.Double(-1000,-1000,10,10);
 	
+	private long lastTookDamage = System.currentTimeMillis();
+	private long takeDamageCooldown = 1000;
+	
+	private int knockbackSpeed = 20;
+	
 
 	
 	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
@@ -110,6 +115,7 @@ public class Warrior extends Avatar {
 	public void update(){
 		//System.out.println("UP: "+faceUp+"\nDOWN: "+faceDown+"\nLEFT: "+faceLeft+"\nRIGHT: "+faceRight);
 		checkIntersecting();
+		updateHealthbar();
 		move();
 		whereToFace();
 		turnOffAttack();
@@ -226,6 +232,7 @@ public class Warrior extends Avatar {
 
 	@Override
 	public void reduceHealth(int DMG_TAKEN) {
+		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
 	        this.health = health - DMG_TAKEN;
 	        if(health<=0){
 	        	panel.gameState = 4;
@@ -233,6 +240,8 @@ public class Warrior extends Avatar {
 	        	panel.highscoreList.addResult();
 	        	panel.waveTimer.started = false;
 	        }
+	        lastTookDamage = System.currentTimeMillis();
+		}
 	}
 
 	public void gainHealth(){
@@ -353,7 +362,27 @@ public class Warrior extends Avatar {
 		}
 		
 	}
+	
+	public void iHitYou(int x, int y){
+		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
+			int middleX = xPos+(playerSize/2);
+			int middleY = yPos+(playerSize/2);
+			//POSISJONEN SOM GIES SKAL VÆRE MIDTEN AV MONSTERET!
+			if(x<middleX && (y>yPos && y<yPos+playerSize)){
+				xSpeed+=knockbackSpeed;
+			}else if(x>middleX && (y>yPos && y<yPos+playerSize)){
+				xSpeed-=knockbackSpeed;
+			}else if(y<middleY && (x>xPos && x<xPos+playerSize)){
+				ySpeed+=knockbackSpeed;
+			}else if(y>middleY && (x>xPos && x<xPos+playerSize)){
+				ySpeed-=knockbackSpeed;
+			}
+		}
+		
+	}
 
+	
+	
 	@Override
 	public void paint(Graphics2D g) {
 		// TODO Auto-generated method stub

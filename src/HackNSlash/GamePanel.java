@@ -46,8 +46,14 @@ public class GamePanel extends JPanel{
 		}
 		else if(gameState==2){
 			player.update();
-			boss.update();
 			waveTimer.update();
+			if(waveTimer.seconds<20){
+				slime.update();
+				troll.update();
+				goblin.update();
+			}else if(waveTimer.seconds<100){
+				boss.update();
+			}
 		}
 		else if(gameState==3){
 			highscoreList.update();
@@ -69,7 +75,13 @@ public class GamePanel extends JPanel{
 		else if(gameState==2){
 			arena.paint(g2d);
 			player.paint(g2d);
-			boss.paint(g2d);
+			if(waveTimer.seconds<10){
+				slime.paint(g2d);
+				troll.paint(g2d);
+				goblin.paint(g2d);
+			}else if(waveTimer.seconds<100){
+				boss.paint(g2d);
+			}
 			waveTimer.paint(g2d);
 		}
 		else if(gameState==3){
