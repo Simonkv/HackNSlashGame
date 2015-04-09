@@ -65,6 +65,10 @@ public class GamePanel extends JPanel{
 		
 	}
 	
+	public void loadHighscores(){
+		highscoreList.loadHighscores();
+	}
+	
 	public void paint(Graphics g){
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
@@ -75,7 +79,7 @@ public class GamePanel extends JPanel{
 		else if(gameState==2){
 			arena.paint(g2d);
 			player.paint(g2d);
-			if(waveTimer.seconds<10){
+			if(waveTimer.seconds<20){
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);
@@ -107,6 +111,7 @@ public class GamePanel extends JPanel{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.loadHighscores();
 		
 		while(running){
 			game.startTimer();

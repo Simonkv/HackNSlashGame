@@ -239,6 +239,7 @@ public class Warrior extends Avatar {
 	        	gainHealth();
 	        	panel.highscoreList.addResult();
 	        	panel.waveTimer.started = false;
+	        	panel.highscoreList.save();
 	        }
 	        lastTookDamage = System.currentTimeMillis();
 		}
