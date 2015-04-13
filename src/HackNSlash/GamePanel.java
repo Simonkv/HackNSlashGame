@@ -28,6 +28,8 @@ public class GamePanel extends JPanel{
 	Goblin goblin = new Goblin(this);
 	Troll troll = new Troll(this);
 	Boss boss = new Boss(this);
+	HighscoreList highscoreList = new HighscoreList(this);
+	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
 	
 	public void startTimer(){
@@ -50,8 +52,18 @@ public class GamePanel extends JPanel{
 			//boss.update();
 			waveTimer.update();
 		}
+		else if(gameState==3){
+			highscoreList.update();
+		}
+		else if(gameState==4){
+			gameOver.update();
+		}
 		
 		
+	}
+	
+	public void loadHighscores(){
+		highscoreList.loadHighscores();
 	}
 	
 	public void paint(Graphics g){
@@ -70,7 +82,12 @@ public class GamePanel extends JPanel{
 			//boss.paint(g2d);
 			waveTimer.paint(g2d);
 		}
-		
+		else if(gameState==3){
+			highscoreList.paint(g2d);
+		}
+		else if(gameState==4){
+			gameOver.paint(g2d);
+		}
 		
 		FPS.paint(g2d);
 		
@@ -87,6 +104,7 @@ public class GamePanel extends JPanel{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.loadHighscores();
 		
 		while(running){
 			game.startTimer();
@@ -114,15 +132,18 @@ public class GamePanel extends JPanel{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					if(gameState==2){
 						player.leftPressed();
+					}else if(gameState==4){
+						gameOver.setPositionTracker("LEFT");
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 					if(gameState==2){
 						player.rightPressed();
+					}else if(gameState==4){
+						gameOver.setPositionTracker("RIGHT");
 					}
 				}
 				if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -142,6 +163,18 @@ public class GamePanel extends JPanel{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					if(gameState==1){
 						menu.enter();
+					}else if(gameState==4){
+						gameOver.enter();
+					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+					if(gameState==3){
+						gameState = 1;
+					}
+				}
+				if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+					if(gameState==3){
+						gameState = 1;
 					}
 				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen

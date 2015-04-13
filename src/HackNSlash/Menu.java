@@ -58,7 +58,7 @@ public class Menu{
 		if(yPosSelected == yPos0){
 			menuScreen.gameState = 2;
 		}else if(yPosSelected == yPos1){
-			
+			menuScreen.gameState = 3;
 		}else if(yPosSelected == yPos2){
 			System.exit(0);
 		}

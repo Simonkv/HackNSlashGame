@@ -123,6 +123,7 @@ public class Warrior extends Avatar {
 		yPos+=ySpeed;
 		xPos+=xSpeed;
 		player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
+		updateHealthbar();
 	}
 	
 	public void whereToFace(){
@@ -233,6 +234,13 @@ public class Warrior extends Avatar {
 	public void reduceHealth(int DMG_TAKEN) {
 		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
 	        this.health = health - DMG_TAKEN;
+	        if(health<=0){
+	        	panel.gameState = 4;
+	        	gainHealth();
+	        	panel.highscoreList.addResult();
+	        	panel.waveTimer.started = false;
+	        	panel.highscoreList.save();
+	        }
 	        lastTookDamage = System.currentTimeMillis();
 		}
 	}
