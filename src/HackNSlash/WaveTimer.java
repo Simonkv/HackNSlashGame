@@ -20,6 +20,7 @@ private int timerFrameHeight = 40;
 private int timerFrameXPos = panel.SCREEN_WIDTH - 180;
 private int timerFrameYPos = 4;
 Rectangle2D.Double timerFrame = new Rectangle2D.Double(timerFrameXPos, timerFrameYPos, timerFrameWidth, timerFrameHeight);
+
 public int seconds;
 
 public WaveTimer(GamePanel panel){

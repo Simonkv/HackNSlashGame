@@ -29,6 +29,8 @@ public class Warrior extends Avatar {
 	private int attack1Length = 130;
 	private int attack1Width = 65;
 	private int attack2Diameter = 200;
+	public int attack1Damage = 10;
+	public int attack2Damage = 5;
 	
 	private int ySpeed=0;
 	private int xSpeed=0;
@@ -50,7 +52,7 @@ public class Warrior extends Avatar {
 
 	
 	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
-	private int health = 100;
+	public int health = 100;
 	private double healthbarWidthCalc = health * 5.88;
 	private int healthbarWidth = (int) healthbarWidthCalc;
 
@@ -79,6 +81,10 @@ public class Warrior extends Avatar {
 	}
 
 	//****JOACHIM****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM*****JOACHIM****
+	
+	public void reset(){
+		gainHealth();
+	}
 	
 	public Warrior(GamePanel panel,int xPos, int yPos){
 		this.xPos = xPos;
@@ -376,6 +382,14 @@ public class Warrior extends Avatar {
 			}else if(y<middleY && (x>xPos && x<xPos+playerSize)){
 				ySpeed+=knockbackSpeed;
 			}else if(y>middleY && (x>xPos && x<xPos+playerSize)){
+				ySpeed-=knockbackSpeed;
+			}else if(x<middleX){
+				xSpeed+=knockbackSpeed;
+			}else if(x>middleX){
+				xSpeed-=knockbackSpeed;
+			}else if(y<middleY){
+				ySpeed+=knockbackSpeed;
+			}else if(y>middleY){
 				ySpeed-=knockbackSpeed;
 			}
 		}
