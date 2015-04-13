@@ -28,6 +28,8 @@ public class GamePanel extends JPanel{
 	Goblin goblin = new Goblin(this);
 	Troll troll = new Troll(this);
 	Boss boss = new Boss(this);
+	HighscoreList highscoreList = new HighscoreList(this);
+	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
 	HighscoreList highscoreList = new HighscoreList(this);
 	GameOver gameOver = new GameOver(this);
@@ -139,7 +141,6 @@ public class GamePanel extends JPanel{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					if(gameState==2){
 						player.leftPressed();
