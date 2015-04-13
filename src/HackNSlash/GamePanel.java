@@ -31,8 +31,7 @@ public class GamePanel extends JPanel{
 	HighscoreList highscoreList = new HighscoreList(this);
 	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
-	HighscoreList highscoreList = new HighscoreList(this);
-	GameOver gameOver = new GameOver(this);
+	
 	
 	public void startTimer(){
 		FPS.startTimer();
