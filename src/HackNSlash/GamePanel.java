@@ -45,9 +45,10 @@ public class GamePanel extends JPanel{
 			menu.update();
 		}
 		else if(gameState==2){
+			checkGameOver();
 			player.update();
 			waveTimer.update();
-			if(waveTimer.seconds<20){
+			if(waveTimer.seconds<1){
 				slime.update();
 				troll.update();
 				goblin.update();
@@ -60,9 +61,17 @@ public class GamePanel extends JPanel{
 		}
 		else if(gameState==4){
 			gameOver.update();
-		}
-		
-		
+		}	
+	}
+	
+	public void checkGameOver(){
+		if(player.health<=0 || boss.isDead()){
+        	gameState = 4;
+        	player.reset();
+        	highscoreList.addResult();
+        	waveTimer.started = false;
+        	boss.reset();
+        }
 	}
 	
 	public void paint(Graphics g){
@@ -75,7 +84,7 @@ public class GamePanel extends JPanel{
 		else if(gameState==2){
 			arena.paint(g2d);
 			player.paint(g2d);
-			if(waveTimer.seconds<10){
+			if(waveTimer.seconds<1){
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);
@@ -201,11 +210,11 @@ public class GamePanel extends JPanel{
 				}
 				if(e.getKeyCode() == KeyEvent.VK_Z){
 					player.attack(1);
-					highscoreList.addPoints(10);
+					
 				}
 				if(e.getKeyCode() == KeyEvent.VK_X){
 					player.attack(2);
-					player.reduceHealth(20);
+					
 				}
 			}
 			
