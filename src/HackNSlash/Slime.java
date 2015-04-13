@@ -305,20 +305,25 @@ public class Slime extends Avatar implements MonsterAI{
 
 	@Override
 	public void update() {
-		checkIntersecting();
-		setAggro();
-		setXPriority();
-		setYPriority();
-		move();
-		knockBack();
-		playerKnockback();
-		//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
-		//System.out.println(playerYBigger + "Y");
-		//System.out.println(playerXBigger + "X");
-		//System.out.println(getHealth());
-		slime = new Rectangle2D.Double(xPos, yPos, SLIME_SIZE, SLIME_SIZE);
-		healthbar = new Rectangle2D.Double(slime.getX(), (slime.getY() - 15), getHealth(), 10);
-		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-SLIME_SIZE)/2, yPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		if (isAlive()){
+			checkIntersecting();
+			setAggro();
+			setXPriority();
+			setYPriority();
+			move();
+			knockBack();
+			playerKnockback();
+			//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
+			//System.out.println(playerYBigger + "Y");
+			//System.out.println(playerXBigger + "X");
+			//System.out.println(getHealth());
+			slime = new Rectangle2D.Double(xPos, yPos, SLIME_SIZE, SLIME_SIZE);
+			healthbar = new Rectangle2D.Double(slime.getX(), (slime.getY() - 15), getHealth(), 10);
+			aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-SLIME_SIZE)/2, yPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		}
+		else {
+			addScore();
+		}
 	}
 
 	@Override
@@ -494,6 +499,12 @@ public class Slime extends Avatar implements MonsterAI{
 		else {
 			return false;
 		}
+	}
+
+	@Override
+	public void addScore() {
+		panel.highscoreList.addPoints(getScore());
+		this.score = 0;
 	}
 	
 }

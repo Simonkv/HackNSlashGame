@@ -305,6 +305,7 @@ public GamePanel panel;
 
 	@Override
 	public void update() {
+		if (isAlive()){
 		checkIntersecting();
 		setAggro();
 		setXPriority();
@@ -318,6 +319,10 @@ public GamePanel panel;
 		goblin = new Rectangle2D.Double(xPos, yPos, GOBLIN_SIZE, GOBLIN_SIZE);
 		healthbar = new Rectangle2D.Double(goblin.getX(), (goblin.getY() - 15), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-GOBLIN_SIZE)/2, yPos-(AGGRO_RANGE-GOBLIN_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		}
+		else {
+			addScore();
+		}
 	}
 
 	@Override
@@ -493,6 +498,12 @@ public GamePanel panel;
 		else {
 			return false;
 		}
+	}
+
+	@Override
+	public void addScore() {
+		panel.highscoreList.addPoints(getScore());
+		this.score = 0;
 	}
 
 }

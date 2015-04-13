@@ -28,6 +28,8 @@ public interface MonsterAI {
 	
 	public void knockBack();
 	
+	public void addScore();
+	
 	public boolean getAggro();
 	
 	public boolean checkIntersecting();
