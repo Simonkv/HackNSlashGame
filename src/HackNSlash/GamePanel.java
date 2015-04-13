@@ -28,9 +28,10 @@ public class GamePanel extends JPanel{
 	Goblin goblin = new Goblin(this);
 	Troll troll = new Troll(this);
 	Boss boss = new Boss(this);
-	WaveTimer waveTimer = new WaveTimer(this);
 	HighscoreList highscoreList = new HighscoreList(this);
 	GameOver gameOver = new GameOver(this);
+	WaveTimer waveTimer = new WaveTimer(this);
+	
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -74,6 +75,10 @@ public class GamePanel extends JPanel{
         }
 	}
 	
+	public void loadHighscores(){
+		highscoreList.loadHighscores();
+	}
+	
 	public void paint(Graphics g){
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
@@ -84,7 +89,7 @@ public class GamePanel extends JPanel{
 		else if(gameState==2){
 			arena.paint(g2d);
 			player.paint(g2d);
-			if(waveTimer.seconds<1){
+			if(waveTimer.seconds<20){
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);
@@ -116,6 +121,7 @@ public class GamePanel extends JPanel{
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.loadHighscores();
 		
 		while(running){
 			game.startTimer();
@@ -143,7 +149,6 @@ public class GamePanel extends JPanel{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					if(gameState==2){
 						player.leftPressed();
