@@ -14,7 +14,7 @@ public class GamePanel extends JPanel{
 	
 	
 	public int gameState = 1;
-	
+
 	public static final int SCREEN_WIDTH = 1200;
 	public static final int SCREEN_HEIGHT = 700;
 	public static int SLEEP_TIME = 100;
@@ -31,6 +31,8 @@ public class GamePanel extends JPanel{
 	HighscoreList highscoreList = new HighscoreList(this);
 	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
+	HighscoreList highscoreList = new HighscoreList(this);
+	GameOver gameOver = new GameOver(this);
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -94,6 +96,7 @@ public class GamePanel extends JPanel{
 		else if(gameState==4){
 			gameOver.paint(g2d);
 		}
+		
 		
 		FPS.paint(g2d);
 		
@@ -204,9 +207,11 @@ public class GamePanel extends JPanel{
 				}
 				if(e.getKeyCode() == KeyEvent.VK_Z){
 					player.attack(1);
+					highscoreList.addPoints(10);
 				}
 				if(e.getKeyCode() == KeyEvent.VK_X){
 					player.attack(2);
+					player.reduceHealth(20);
 				}
 			}
 			
