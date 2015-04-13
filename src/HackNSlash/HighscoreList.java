@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Arrays;
-<<<<<<< HEAD
 import java.util.Scanner;
 import java.io.FileReader;
 import java.io.PrintWriter;
