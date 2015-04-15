@@ -46,16 +46,16 @@ public class GamePanel extends JPanel{
 	Troll troll2 = new Troll(this);
 	
 	
-	Goblin goblin3 = new Goblin(this);
-	Goblin goblin4 = new Goblin(this);
-	Goblin goblin5 = new Goblin(this);
-	Goblin goblin6 = new Goblin(this);
-	Goblin goblin7 = new Goblin(this);
-	Goblin goblin8 = new Goblin(this);
-	Goblin goblin9 = new Goblin(this);
-	Goblin goblin10 = new Goblin(this);
-	Goblin goblin11 = new Goblin(this);
-	Goblin goblin12 = new Goblin(this);
+	Goblin goblin3 = new Goblin(this,50,100);
+	Goblin goblin4 = new Goblin(this,150,100);
+	Goblin goblin5 = new Goblin(this,250,100);
+	Goblin goblin6 = new Goblin(this,350,100);
+	Goblin goblin7 = new Goblin(this,450,100);
+	Goblin goblin8 = new Goblin(this,550,100);
+	Goblin goblin9 = new Goblin(this,600,100);
+	Goblin goblin10 = new Goblin(this,750,100);
+	Goblin goblin11 = new Goblin(this,850,100);
+	Goblin goblin12 = new Goblin(this,950,100);
 	
 	
 	

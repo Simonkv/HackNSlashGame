@@ -38,7 +38,7 @@ public class Warrior extends Avatar {
 	private int acceleration = 2;
 	private int maxSpeed = 10;
 	
-	public int playerSize = 80;
+	public int playerSize = 60;
 	Rectangle2D.Double player = new Rectangle2D.Double(xPos,yPos,playerSize,playerSize);
 	
 	Rectangle2D.Double attack1 = new Rectangle2D.Double(-1000,-1000,10,10);
