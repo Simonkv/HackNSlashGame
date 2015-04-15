@@ -54,6 +54,27 @@ public GamePanel panel;
 		this.panel = panel;
 		setAggro();
 	}
+	
+	public Goblin(GamePanel panel, int x, int y){
+		setName();
+		setPlayable();
+		setMonsterDamage();
+		setHealth();
+		setDamage();
+		setScore();
+		setXPosition(x);
+		setYPosition(y);
+		setDealDamage(true);
+		setTakeDamage(true);
+		setRanged();
+		
+		idleTimer();
+		goblin = new Rectangle2D.Double(yPos, xPos, GOBLIN_SIZE, GOBLIN_SIZE);
+		healthbar = new Rectangle2D.Double(goblin.getX(), (goblin.getY() - 15), getHealth(), 10);
+		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-GOBLIN_SIZE)/2, xPos-(AGGRO_RANGE-GOBLIN_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		this.panel = panel;
+		setAggro();
+	}
 
 	@Override
 	public void setName() {

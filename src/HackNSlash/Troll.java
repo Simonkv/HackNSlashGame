@@ -54,6 +54,27 @@ public GamePanel panel;
 		this.panel = panel;
 		setAggro();
 	}
+	
+	public Troll(GamePanel panel, int x, int y){
+		setName();
+		setPlayable();
+		setMonsterDamage();
+		setHealth();
+		setDamage();
+		setScore();
+		setXPosition(x);
+		setYPosition(y);
+		setDealDamage(true);
+		setTakeDamage(true);
+		setRanged();
+		
+		idleTimer();
+		troll = new Rectangle2D.Double(yPos, xPos, TROLL_SIZE, TROLL_SIZE);
+		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-TROLL_SIZE)/2, xPos-(AGGRO_RANGE-TROLL_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 15), getHealth(), 10);
+		this.panel = panel;
+		setAggro();
+	}
 
 	@Override
 	public void setName() {
