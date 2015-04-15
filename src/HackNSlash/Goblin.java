@@ -389,7 +389,7 @@ public GamePanel panel;
 	}
 	
 	public boolean isAlive(){
-		if (getHealth() != 0){
+		if (getHealth() > 0){
 			return true;
 		}
 		else {
@@ -421,6 +421,12 @@ public GamePanel panel;
 		}
 		else {
 			yPriority = false;
+			if (getXPosition() + (GOBLIN_SIZE/2) > panel.player.getXPosition()+(panel.player.playerSize/2)){
+				playerXBigger = false;
+			}
+			else {
+				playerXBigger = true;
+			}
 		}
 		//System.out.println(yPriority);
 	}
@@ -438,6 +444,12 @@ public GamePanel panel;
 		}
 		else {
 			xPriority = false;
+			if (getYPosition() + (GOBLIN_SIZE/2) > panel.player.getYPosition()+(panel.player.playerSize/2)){
+				playerYBigger = false;
+			}
+			else {
+				playerYBigger = true;
+			}
 		}
 		//System.out.println(xPriority);
 	}
