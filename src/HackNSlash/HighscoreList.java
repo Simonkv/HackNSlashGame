@@ -17,7 +17,7 @@ public class HighscoreList {
 	static Scanner scan = new Scanner(System.in);
 	
 	private int newHighscore;
-	private int bufferScore;
+	public int bufferScore;
 	ArrayList<Integer> highscores = new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0));
 	
 	Rectangle2D.Double background = new Rectangle2D.Double(0, 0, panel.SCREEN_WIDTH, panel.SCREEN_HEIGHT);
@@ -69,6 +69,8 @@ public class HighscoreList {
 	public int getElement(int pos){
 		return highscores.get(pos);
 	}
+	
+	
 	
 	public void addResult(){
 		if (newHighscore > highscores.get(size()-1)){

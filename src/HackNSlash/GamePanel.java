@@ -30,11 +30,13 @@ public class GamePanel extends JPanel{
 	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
 	
+	Boss boss = new Boss(this);
+	
 	
 	Slime slime = new Slime(this);
 	Goblin goblin = new Goblin(this);
 	Troll troll = new Troll(this);
-	Boss boss = new Boss(this);
+	
 	
 	Slime slime1 = new Slime(this);
 	Goblin goblin1 = new Goblin(this);
@@ -42,12 +44,28 @@ public class GamePanel extends JPanel{
 	Slime slime2 = new Slime(this);
 	Goblin goblin2 = new Goblin(this);
 	Troll troll2 = new Troll(this);
-	Slime slime3 = new Slime(this);
+	
+	
 	Goblin goblin3 = new Goblin(this);
-	Troll troll3 = new Troll(this);
+	Goblin goblin4 = new Goblin(this);
+	Goblin goblin5 = new Goblin(this);
+	Goblin goblin6 = new Goblin(this);
+	Goblin goblin7 = new Goblin(this);
+	Goblin goblin8 = new Goblin(this);
+	Goblin goblin9 = new Goblin(this);
+	Goblin goblin10 = new Goblin(this);
+	Goblin goblin11 = new Goblin(this);
+	Goblin goblin12 = new Goblin(this);
+	
+	
+	
 	
 	ArrayList<MonsterAI> wave1 = new ArrayList<MonsterAI>();
 	ArrayList<MonsterAI> wave2 = new ArrayList<MonsterAI>();
+	ArrayList<MonsterAI> wave3 = new ArrayList<MonsterAI>();
+	ArrayList<MonsterAI> wave4 = new ArrayList<MonsterAI>();
+	ArrayList<MonsterAI> wave5 = new ArrayList<MonsterAI>();
+	ArrayList<MonsterAI> wave6 = new ArrayList<MonsterAI>();
 
 	
 	private boolean wavesStarted = false;
@@ -67,6 +85,17 @@ public class GamePanel extends JPanel{
 		wave2.add(goblin2);
 		wave2.add(troll1);
 		wave2.add(troll2);
+		
+		wave3.add(goblin3);
+		wave3.add(goblin4);
+		wave3.add(goblin5);
+		wave3.add(goblin6);
+		wave3.add(goblin7);
+		wave3.add(goblin8);
+		wave3.add(goblin9);
+		wave3.add(goblin10);
+		wave3.add(goblin11);
+		wave3.add(goblin12);
 		wavesStarted=true;
 	}
 	
@@ -110,7 +139,26 @@ public class GamePanel extends JPanel{
 				slime2.update();
 				troll2.update();
 				goblin2.update();
-			}else{
+			}else if(!waveIsOver(wave3)){
+				goblin3.update();
+				goblin4.update();
+				goblin5.update();
+				goblin6.update();
+				goblin7.update();
+				goblin8.update();
+				goblin9.update();
+				goblin10.update();
+				goblin11.update();
+				goblin12.update();
+			}else if(!waveIsOver(wave4)){
+				
+			}else if(!waveIsOver(wave5)){
+				
+			}else if(!waveIsOver(wave6)){
+				
+			}
+			
+			else{
 				boss.update();
 			}
 		}
@@ -135,9 +183,10 @@ public class GamePanel extends JPanel{
 		slime = new Slime(this);
 		goblin = new Goblin(this);
 		troll = new Troll(this);
-		player = new Warrior(this,200,200);
+		player = new Warrior(this,500,500);
 		boss = new Boss(this);
 		wavesStarted=false;
+		highscoreList.bufferScore = 0;
 	}
 	
 	public void loadHighscores(){
@@ -165,7 +214,27 @@ public class GamePanel extends JPanel{
 				slime2.paint(g2d);
 				troll2.paint(g2d);
 				goblin2.paint(g2d);
-			}else{
+			}else if(!waveIsOver(wave3)){
+				goblin3.paint(g2d);
+				goblin4.paint(g2d);
+				goblin5.paint(g2d);
+				goblin6.paint(g2d);
+				goblin7.paint(g2d);
+				goblin8.paint(g2d);
+				goblin9.paint(g2d);
+				goblin10.paint(g2d);
+				goblin11.paint(g2d);
+				goblin12.paint(g2d);
+			}else if(!waveIsOver(wave4)){
+				
+			}else if(!waveIsOver(wave5)){
+				
+			}else if(!waveIsOver(wave6)){
+				
+			}
+			
+			
+			else{
 				boss.paint(g2d);
 			}
 			waveTimer.paint(g2d);
