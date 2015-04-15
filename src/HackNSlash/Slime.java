@@ -56,6 +56,28 @@ public class Slime extends Avatar implements MonsterAI{
 		this.panel = panel;
 		setAggro();
 	}
+	
+	public Slime(GamePanel panel, int x, int y){
+		setName();
+		setPlayable();
+		setMonsterDamage();
+		setHealth();
+		setDamage();
+		setScore();
+		setXPosition(x);
+		setYPosition(y);
+		setDealDamage(true);
+		setTakeDamage(true);
+		setRanged();
+		
+		
+		idleTimer();
+		slime = new Rectangle2D.Double(yPos, xPos, SLIME_SIZE, SLIME_SIZE);
+		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-SLIME_SIZE)/2, xPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+		healthbar = new Rectangle2D.Double(slime.getX(), slime.getY(), getHealth(), 10);
+		this.panel = panel;
+		setAggro();
+	}
 
 	@Override
 	public void setName() {
