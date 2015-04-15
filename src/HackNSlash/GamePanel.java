@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,16 +23,52 @@ public class GamePanel extends JPanel{
 	
 	FPScalculator FPS = new FPScalculator(this);
 	Arena arena = new Arena(this);
-	Warrior player = new Warrior(this,200,200);
+	Warrior player = new Warrior(this,500,500);
 	Menu menu = new Menu(this);
-	Slime slime = new Slime(this);
-	Goblin goblin = new Goblin(this);
-	Troll troll = new Troll(this);
-	Boss boss = new Boss(this);
+	
 	HighscoreList highscoreList = new HighscoreList(this);
 	GameOver gameOver = new GameOver(this);
 	WaveTimer waveTimer = new WaveTimer(this);
 	
+	
+	Slime slime = new Slime(this);
+	Goblin goblin = new Goblin(this);
+	Troll troll = new Troll(this);
+	Boss boss = new Boss(this);
+	
+	Slime slime1 = new Slime(this);
+	Goblin goblin1 = new Goblin(this);
+	Troll troll1 = new Troll(this);
+	Slime slime2 = new Slime(this);
+	Goblin goblin2 = new Goblin(this);
+	Troll troll2 = new Troll(this);
+	Slime slime3 = new Slime(this);
+	Goblin goblin3 = new Goblin(this);
+	Troll troll3 = new Troll(this);
+	
+	ArrayList<MonsterAI> wave1 = new ArrayList<MonsterAI>();
+	ArrayList<MonsterAI> wave2 = new ArrayList<MonsterAI>();
+
+	
+	private boolean wavesStarted = false;
+	
+	public void startWave1(){
+		
+	}
+	
+	public void addAllEnemies(){
+		wave1.add(slime);
+		wave1.add(troll);
+		wave1.add(goblin);
+		
+		wave2.add(slime1);
+		wave2.add(slime2);
+		wave2.add(goblin1);
+		wave2.add(goblin2);
+		wave2.add(troll1);
+		wave2.add(troll2);
+		wavesStarted=true;
+	}
 	
 	public void startTimer(){
 		FPS.startTimer();
@@ -41,19 +78,39 @@ public class GamePanel extends JPanel{
 		SLEEP_TIME=FPS.getSleepTime();
 	}
 	
+	private boolean waveIsOver(ArrayList<MonsterAI> wave){
+		for(MonsterAI enemy: wave){
+			if(enemy.isAlive()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void update(){
 		if(gameState==1){
 			menu.update();
 		}
 		else if(gameState==2){
+			
 			checkGameOver();
 			player.update();
 			waveTimer.update();
-			if(waveTimer.seconds<1){
+			if(!wavesStarted){
+				addAllEnemies();
+			}
+			if(!waveIsOver(wave1)){
 				slime.update();
 				troll.update();
 				goblin.update();
-			}else if(waveTimer.seconds<100){
+			}else if(!waveIsOver(wave2)){
+				slime1.update();
+				troll1.update();
+				goblin1.update();
+				slime2.update();
+				troll2.update();
+				goblin2.update();
+			}else{
 				boss.update();
 			}
 		}
@@ -68,11 +125,19 @@ public class GamePanel extends JPanel{
 	public void checkGameOver(){
 		if(player.health<=0 || boss.isDead()){
         	gameState = 4;
-        	player.reset();
         	highscoreList.addResult();
         	waveTimer.started = false;
-        	boss.reset();
+        	
         }
+	}
+	
+	public void reset(){
+		slime = new Slime(this);
+		goblin = new Goblin(this);
+		troll = new Troll(this);
+		player = new Warrior(this,200,200);
+		boss = new Boss(this);
+		wavesStarted=false;
 	}
 	
 	public void loadHighscores(){
@@ -89,11 +154,18 @@ public class GamePanel extends JPanel{
 		else if(gameState==2){
 			arena.paint(g2d);
 			player.paint(g2d);
-			if(waveTimer.seconds<20){
+			if(!waveIsOver(wave1)){
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);
-			}else if(waveTimer.seconds<100){
+			}else if(!waveIsOver(wave2)){
+				slime1.paint(g2d);
+				troll1.paint(g2d);
+				goblin1.paint(g2d);
+				slime2.paint(g2d);
+				troll2.paint(g2d);
+				goblin2.paint(g2d);
+			}else{
 				boss.paint(g2d);
 			}
 			waveTimer.paint(g2d);
@@ -194,6 +266,14 @@ public class GamePanel extends JPanel{
 						gameState = 1;
 					}
 				}
+				if(e.getKeyCode() == KeyEvent.VK_Z){
+					player.attack(1);
+					
+				}
+				if(e.getKeyCode() == KeyEvent.VK_X){
+					player.attack(2);
+					
+				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen
 			}
 
@@ -213,14 +293,7 @@ public class GamePanel extends JPanel{
 				if(e.getKeyCode() == KeyEvent.VK_DOWN){
 					player.downReleased();
 				}
-				if(e.getKeyCode() == KeyEvent.VK_Z){
-					player.attack(1);
-					
-				}
-				if(e.getKeyCode() == KeyEvent.VK_X){
-					player.attack(2);
-					
-				}
+				
 			}
 			
 			

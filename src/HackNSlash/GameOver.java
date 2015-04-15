@@ -53,6 +53,7 @@ public class GameOver {
 	
 	public void enter(){
 		if(xPosSelected == xPos1){
+			panel.reset();
 			panel.gameState = 2;
 		}else if(xPosSelected == xPos2){
 			panel.gameState = 1;

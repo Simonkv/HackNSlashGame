@@ -390,7 +390,7 @@ public class Slime extends Avatar implements MonsterAI{
 	}
 	
 	public boolean isAlive(){
-		if (getHealth() != 0){
+		if (getHealth() > 0){
 			return true;
 		}
 		else {

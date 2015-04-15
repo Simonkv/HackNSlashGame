@@ -26,7 +26,7 @@ public class Boss{
 	private Rectangle2D.Double healthbar = new Rectangle2D.Double((panel.SCREEN_WIDTH/2)-healthBarLength/2, 10, healthBarLength, 30);
 	private Rectangle2D.Double bossRectangle = new Rectangle2D.Double(xPos, yPos, bossWidth, bossHeight);
 	
-	private int BOSS_TOUCH_DAMAGE = 30;
+	private int BOSS_TOUCH_DAMAGE = 10;
 	
 	
 	//*************XERATH ULT *******************

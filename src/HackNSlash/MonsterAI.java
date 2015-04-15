@@ -30,6 +30,8 @@ public interface MonsterAI {
 	
 	public void addScore();
 	
+	public boolean isAlive();
+	
 	public boolean getAggro();
 	
 	public boolean checkIntersecting();
