@@ -48,6 +48,7 @@ public class Slime extends Avatar implements MonsterAI{
 		setTakeDamage(true);
 		setRanged();
 		
+		
 		idleTimer();
 		slime = new Rectangle2D.Double(yPos, xPos, SLIME_SIZE, SLIME_SIZE);
 		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-SLIME_SIZE)/2, xPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
@@ -308,18 +309,21 @@ public class Slime extends Avatar implements MonsterAI{
 		if (isAlive()){
 			checkIntersecting();
 			setAggro();
-			setXPriority();
-			setYPriority();
 			move();
 			knockBack();
 			playerKnockback();
 			//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
 			//System.out.println(playerYBigger + "Y");
 			//System.out.println(playerXBigger + "X");
+			//System.out.println(slime.getCenterY());
+			//System.out.println(panel.player.getYPosition());
+			setXPriority();
+			setYPriority();
 			//System.out.println(getHealth());
 			slime = new Rectangle2D.Double(xPos, yPos, SLIME_SIZE, SLIME_SIZE);
 			healthbar = new Rectangle2D.Double(slime.getX(), (slime.getY() - 15), getHealth(), 10);
 			aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-SLIME_SIZE)/2, yPos-(AGGRO_RANGE-SLIME_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
+			
 		}
 		else {
 			addScore();
@@ -390,7 +394,7 @@ public class Slime extends Avatar implements MonsterAI{
 	}
 	
 	public boolean isAlive(){
-		if (getHealth() != 0){
+		if (getHealth() > 0){
 			return true;
 		}
 		else {
@@ -422,6 +426,12 @@ public class Slime extends Avatar implements MonsterAI{
 		}
 		else {
 			yPriority = false;
+			if (getXPosition() + (SLIME_SIZE/2) > panel.player.getXPosition()+(panel.player.playerSize/2)){
+				playerXBigger = false;
+			}
+			else {
+				playerXBigger = true;
+			}
 		}
 		//System.out.println(yPriority);
 	}
@@ -439,6 +449,12 @@ public class Slime extends Avatar implements MonsterAI{
 		}
 		else {
 			xPriority = false;
+			if (getYPosition() + (SLIME_SIZE/2) > panel.player.getYPosition()+(panel.player.playerSize/2)){
+				playerYBigger = false;
+			}
+			else {
+				playerYBigger = true;
+			}
 		}
 		//System.out.println(xPriority);
 	}
