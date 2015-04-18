@@ -406,8 +406,66 @@ public GamePanel panel;
 				}
 				reduceHealth(10);
 			}
+			else if (panel.player.attack2.intersects(troll)){
+				if (yPriority){
+					if (!playerYBigger){
+						if (checkBotWall()){
+							yPos += 0;
+						}
+						else{
+							yPos += (TROLL_SIZE / 2);
+						}
+					}
+					else {
+						if (checkTopWall()){
+							yPos += 0;
+						}
+						else {
+							yPos += -(TROLL_SIZE / 2);	
+						}
+					}
+				}
+				else if (xPriority){
+					if (!playerXBigger){
+						if (checkRightWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += (TROLL_SIZE / 2);
+						}
+					}
+					else {
+						if (checkLeftWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += -(TROLL_SIZE / 2);
+						}
+					}
+				}
+				else {
+					if (!playerXBigger && !playerYBigger){
+						xPos += (TROLL_SIZE / 2);
+						yPos += (TROLL_SIZE / 2);
+					}
+					else if(!playerXBigger && playerYBigger){
+						xPos += (TROLL_SIZE / 2);
+						yPos += -(TROLL_SIZE / 2);
+					}
+					else if (playerXBigger && !playerYBigger){
+						xPos += -(TROLL_SIZE / 2);
+						yPos += (TROLL_SIZE / 2);
+					}
+					else if (playerXBigger && playerYBigger) {
+						xPos += -(TROLL_SIZE / 2);
+						yPos += -(TROLL_SIZE / 2);
+					}
+				}
+				reduceHealth(5);
+			}
 		}
 	}
+	
 	
 	public boolean isAlive(){
 		if (getHealth() > 0){

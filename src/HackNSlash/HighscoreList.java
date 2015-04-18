@@ -73,6 +73,7 @@ public class HighscoreList {
 	
 	
 	public void addResult(){
+		bufferScore = newHighscore;
 		if (newHighscore > highscores.get(size()-1)){
 			boolean higher = true;
 			int counter = -1;
@@ -81,7 +82,7 @@ public class HighscoreList {
 				if (newHighscore > getElement(counter)){
 					highscores.add(counter, newHighscore);
 					highscores.remove(size()-1);
-					bufferScore = newHighscore;
+					
 					higher = false;
 				}
 			}

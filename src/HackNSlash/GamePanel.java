@@ -38,12 +38,12 @@ public class GamePanel extends JPanel{
 	Troll troll = new Troll(this);
 	
 	
-	Slime slime1 = new Slime(this);
-	Goblin goblin1 = new Goblin(this);
-	Troll troll1 = new Troll(this);
-	Slime slime2 = new Slime(this);
-	Goblin goblin2 = new Goblin(this);
-	Troll troll2 = new Troll(this);
+	Slime slime1 = new Slime(this,100,100);
+	Goblin goblin1 = new Goblin(this,350,100);
+	Troll troll1 = new Troll(this,500,100);
+	Slime slime2 = new Slime(this,1050,100);
+	Goblin goblin2 = new Goblin(this,750,100);
+	Troll troll2 = new Troll(this,600,100);
 	
 	
 	Goblin goblin3 = new Goblin(this,50,100);
@@ -186,7 +186,7 @@ public class GamePanel extends JPanel{
 		player = new Warrior(this,500,500);
 		boss = new Boss(this);
 		wavesStarted=false;
-		highscoreList.bufferScore = 0;
+		//highscoreList.bufferScore = 0;
 	}
 	
 	public void loadHighscores(){
@@ -341,6 +341,10 @@ public class GamePanel extends JPanel{
 				}
 				if(e.getKeyCode() == KeyEvent.VK_X){
 					player.attack(2);
+					
+				}
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+					player.reduceHealth(1000);
 					
 				}
 				//annaClass.keyPressed(e); sender tastetrykk til den classen

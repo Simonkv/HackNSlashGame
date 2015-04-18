@@ -406,6 +406,63 @@ public GamePanel panel;
 				}
 				reduceHealth(10);
 			}
+			else if (panel.player.attack2.intersects(goblin)){
+				if (yPriority){
+					if (!playerYBigger){
+						if (checkBotWall()){
+							yPos += 0;
+						}
+						else{
+							yPos += (GOBLIN_SIZE);
+						}
+					}
+					else {
+						if (checkTopWall()){
+							yPos += 0;
+						}
+						else {
+							yPos += -(GOBLIN_SIZE);	
+						}
+					}
+				}
+				else if (xPriority){
+					if (!playerXBigger){
+						if (checkRightWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += (GOBLIN_SIZE);
+						}
+					}
+					else {
+						if (checkLeftWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += -(GOBLIN_SIZE);
+						}
+					}
+				}
+				else {
+					if (!playerXBigger && !playerYBigger){
+						xPos += (GOBLIN_SIZE);
+						yPos += (GOBLIN_SIZE);
+					}
+					else if(!playerXBigger && playerYBigger){
+						xPos += (GOBLIN_SIZE);
+						yPos += -(GOBLIN_SIZE);
+					}
+					else if (playerXBigger && !playerYBigger){
+						xPos += -(GOBLIN_SIZE);
+						yPos += (GOBLIN_SIZE);
+					}
+					else if (playerXBigger && playerYBigger) {
+						xPos += -(GOBLIN_SIZE);
+						yPos += -(GOBLIN_SIZE);
+					}
+				}
+				reduceHealth(10);
+			}
 		}
 	}
 	

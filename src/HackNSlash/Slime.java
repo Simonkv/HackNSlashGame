@@ -412,6 +412,63 @@ public class Slime extends Avatar implements MonsterAI{
 				}
 				reduceHealth(10);
 			}
+			else if (panel.player.attack2.intersects(slime)){
+				if (yPriority){
+					if (!playerYBigger){
+						if (checkBotWall()){
+							yPos += 0;
+						}
+						else{
+							yPos += (SLIME_SIZE * 3);
+						}
+					}
+					else {
+						if (checkTopWall()){
+							yPos += 0;
+						}
+						else {
+							yPos += -(SLIME_SIZE * 3);	
+						}
+					}
+				}
+				else if (xPriority){
+					if (!playerXBigger){
+						if (checkRightWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += (SLIME_SIZE * 3);
+						}
+					}
+					else {
+						if (checkLeftWall()){
+							xPos += 0;
+						}
+						else {
+							xPos += -(SLIME_SIZE * 3);
+						}
+					}
+				}
+				else {
+					if (!playerXBigger && !playerYBigger){
+						xPos += (SLIME_SIZE * 3);
+						yPos += (SLIME_SIZE * 3);
+					}
+					else if(!playerXBigger && playerYBigger){
+						xPos += (SLIME_SIZE * 3);
+						yPos += -(SLIME_SIZE * 3);
+					}
+					else if (playerXBigger && !playerYBigger){
+						xPos += -(SLIME_SIZE * 3);
+						yPos += (SLIME_SIZE * 3);
+					}
+					else if (playerXBigger && playerYBigger) {
+						xPos += -(SLIME_SIZE * 3);
+						yPos += -(SLIME_SIZE * 3);
+					}
+				}
+				reduceHealth(5);
+			}
 		}
 	}
 	
