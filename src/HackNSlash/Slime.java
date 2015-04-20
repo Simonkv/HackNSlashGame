@@ -11,6 +11,12 @@ public class Slime extends Avatar implements MonsterAI{
 	
 	public GamePanel panel;
 	
+	private boolean faceUp = false;
+	private boolean faceDown = true;
+	private boolean faceLeft = false;
+	private boolean faceRight = false;
+	
+	
 	private int ySpeed=0;
 	private int xSpeed=0;
 	private boolean aggro;
@@ -151,9 +157,21 @@ public class Slime extends Avatar implements MonsterAI{
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setColor(Color.RED);
+		if(faceUp){
+			g.setColor(Color.PINK);
+		}
+		if(faceDown){
+			g.setColor(Color.ORANGE);
+		}
+		if(faceLeft){
+			g.setColor(Color.RED);
+		}
+		if(faceRight){
+			g.setColor(Color.BLUE);
+		}
+		
 		//g.fill(aggroCircle);
-		g.setColor(Color.PINK);
+		
 		if (isAlive()){
 			g.fill(slime);
 			g.setColor(Color.RED);
@@ -187,18 +205,23 @@ public class Slime extends Avatar implements MonsterAI{
 			if (checkRightWall() && checkBotWall()){
 				xPos+=-xSpeed;
 				yPos+=-ySpeed;
+				
+				
 			}
 			else if (checkRightWall()){
 				xPos+=0;
 				yPos+=ySpeed;
+				
 			}
 			else if (checkBotWall()){
 				xPos+=xSpeed;
 				yPos+=0;
+				
 			}
 			else{
 				xPos+=xSpeed;
 				yPos+=ySpeed;
+				
 			}
 		}
 		else if (direction < 50) {
@@ -265,17 +288,33 @@ public class Slime extends Avatar implements MonsterAI{
 		if (yPriority){
 			if (!playerYBigger){
 				yPos += -SLIME_AGGRO_SPEED;
+				faceUp = true;
+				faceDown = false;
+				faceLeft = false;
+				faceRight = false;
 			}
 			else {
 				yPos += SLIME_AGGRO_SPEED;
+				faceUp = false;
+				faceDown = true;
+				faceLeft = false;
+				faceRight = false;
 			}
 		}
 		else if (xPriority){
 			if (!playerXBigger){
 				xPos += -SLIME_AGGRO_SPEED;
+				faceUp = false;
+				faceDown = false;
+				faceLeft = true;
+				faceRight = false;
 			}
 			else {
 				xPos += SLIME_AGGRO_SPEED;
+				faceUp = false;
+				faceDown = false;
+				faceLeft = false;
+				faceRight = true;
 			}
 		}
 		else {
@@ -325,6 +364,30 @@ public class Slime extends Avatar implements MonsterAI{
 			return false;
 		}
 	}
+	
+	private void whereToFace(){
+		if(playerXBigger){
+			faceUp = false;
+			faceDown = false;
+			faceLeft = false;
+			faceRight = true;
+		}else if(playerYBigger){
+			faceUp = false;
+			faceDown = false;
+			faceLeft = true;
+			faceRight = false;
+		}else if(ySpeed>0){
+			faceUp = false;
+			faceDown = true;
+			faceLeft = false;
+			faceRight = false;
+		}else if(ySpeed<0){
+			faceUp = true;
+			faceDown = false;
+			faceLeft = false;
+			faceRight = false;
+		}
+	}
 
 	@Override
 	public void update() {
@@ -334,6 +397,7 @@ public class Slime extends Avatar implements MonsterAI{
 			move();
 			knockBack();
 			playerKnockback();
+			whereToFace();
 			//System.out.println("XPRI: " + getXPriority() + " " + "YPRI: " + getYPriority());
 			//System.out.println(playerYBigger + "Y");
 			//System.out.println(playerXBigger + "X");

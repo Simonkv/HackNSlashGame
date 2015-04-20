@@ -5,9 +5,40 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.ImageIcon;
+
 public class Warrior extends Avatar {
 	
 	public GamePanel panel;
+	
+	ImageIcon HeroFrontStandby = new ImageIcon ( "Images/HeroFrontStandby.png" );
+	ImageIcon HeroFrontRun1 = new ImageIcon ( "Images/HeroFrontRun1.png" );
+	ImageIcon HeroFrontRun2 = new ImageIcon ( "Images/HeroFrontRun2.png" );
+	ImageIcon HeroFrontSwosh1 = new ImageIcon ( "Images/HeroFrontSwosh1.png" );
+	ImageIcon HeroFrontSwosh2 = new ImageIcon ( "Images/HeroFrontSwosh2.png" );
+	
+	ImageIcon HeroBackStandby = new ImageIcon ( "Images/HeroBackStandby.png" );
+	ImageIcon HeroBackRun1 = new ImageIcon ( "Images/HeroBackRun1.png" );
+	ImageIcon HeroBackRun2 = new ImageIcon ( "Images/HeroBackRun2.png" );
+	ImageIcon HeroBackSwosh1 = new ImageIcon ( "Images/HeroBackSwosh1.png" );
+	ImageIcon HeroBackSwosh2 = new ImageIcon ( "Images/HeroBackSwosh2.png" );
+	
+	ImageIcon HeroLeftStandby = new ImageIcon ( "Images/HeroLeftStandby.png" );
+	ImageIcon HeroLeftRun1 = new ImageIcon ( "Images/HeroLeftRun1.png" );
+	ImageIcon HeroLeftRun2 = new ImageIcon ( "Images/HeroLeftRun2.png" );
+	ImageIcon HeroLeftSwosh1 = new ImageIcon ( "Images/HeroLeftSwosh1.png" );
+	ImageIcon HeroLeftSwosh2 = new ImageIcon ( "Images/HeroLeftSwosh2v3.png" );
+	
+	ImageIcon HeroRightStandby = new ImageIcon ( "Images/HeroRightStandby.png" );
+	ImageIcon HeroRightRun1 = new ImageIcon ( "Images/HeroRightRun1.png" );
+	ImageIcon HeroRightRun2 = new ImageIcon ( "Images/HeroRightRun2.png" );
+	ImageIcon HeroRightSwosh1 = new ImageIcon ( "Images/HeroRightSwosh1.png" );
+	ImageIcon HeroRightSwosh2 = new ImageIcon ( "Images/HeroRightSwosh2v4.png" );
+	
+	ImageIcon HeroSpin1 = new ImageIcon ( "Images/HeroSpin1.png" );
+	ImageIcon HeroSpin2 = new ImageIcon ( "Images/HeroSpin2.png" );
+	
+	
 	
 	private boolean walkUp = false;
 	private boolean walkDown = false;
@@ -19,16 +50,21 @@ public class Warrior extends Avatar {
 	private boolean faceLeft = false;
 	private boolean faceRight = false;
 	
+	private boolean hitUp = false;
+	private boolean hitDown = false;
+	private boolean hitLeft = false;
+	private boolean hitRight = false;
+	
 	private long cooldownInMillis = 500;
 	private long cooldownStart = 0;
 	
-	private long attackLengthInMillis = 200;
+	private long attackLengthInMillis = 300;
 	
 	private boolean attack1On = false;
 	private boolean attack2On = false;
 	private int attack1Length = 130;
-	private int attack1Width = 65;
-	private int attack2Diameter = 200;
+	private int attack1Width = 50;
+	private int attack2Diameter = 150;
 	public int attack1Damage = 10;
 	public int attack2Damage = 5;
 	
@@ -241,11 +277,6 @@ public class Warrior extends Avatar {
 		if(System.currentTimeMillis()-lastTookDamage>takeDamageCooldown){
 	        this.health = health - DMG_TAKEN;
 	        if(health<=0){
-	        	panel.gameState = 4;
-	        	gainHealth();
-	        	panel.highscoreList.addResult();
-	        	panel.waveTimer.started = false;
-	        	panel.highscoreList.save();
 	        }
 	        lastTookDamage = System.currentTimeMillis();
 		}
@@ -311,7 +342,9 @@ public class Warrior extends Avatar {
 	
 	public boolean attackOffCooldown(){
 		if(System.currentTimeMillis()-cooldownStart<cooldownInMillis){
+			System.out.println("FORTSATT COOLDOWN!");
 			return false;
+			
 		}else{
 			return true;
 		}
@@ -324,10 +357,18 @@ public class Warrior extends Avatar {
 		if(System.currentTimeMillis()-cooldownStart > attackLengthInMillis){
 			attack1 = new Rectangle2D.Double(-1000,-1000,10,10);
 			attack1On = false;
+			hitUp = false;
+			hitDown = false;
+			hitLeft = false;
+			hitRight = false;
 		}
 		if(System.currentTimeMillis()-cooldownStart > attackLengthInMillis){
 			attack2 = new Ellipse2D.Double(-1000,-1000,10,10);
 			attack2On = false;
+			hitUp = false;
+			hitDown = false;
+			hitLeft = false;
+			hitRight = false;
 		}
 	}
 	
@@ -335,15 +376,31 @@ public class Warrior extends Avatar {
 		if(attack1On && faceUp){
 			attack1 = new Rectangle2D.Double(xPos-((attack1Length-playerSize)/2),
 					yPos-attack1Width,attack1Length,attack1Width);
+			hitUp = true;
+			hitDown = false;
+			hitLeft = false;
+			hitRight = false;
 		}else if(attack1On && faceDown){
 			attack1 = new Rectangle2D.Double(xPos-((attack1Length-playerSize)/2),
 					yPos+playerSize,attack1Length,attack1Width);
+			hitUp = false;
+			hitDown = true;
+			hitLeft = false;
+			hitRight = false;
 		}else if(attack1On && faceLeft){
 			attack1 = new Rectangle2D.Double(xPos-attack1Width,
 					yPos-((attack1Length-playerSize)/2),attack1Width,attack1Length);
+			hitUp = false;
+			hitDown = false;
+			hitLeft = true;
+			hitRight = false;
 		}else if(attack1On && faceRight){
 			attack1 = new Rectangle2D.Double(xPos+playerSize,
 					yPos-((attack1Length-playerSize)/2),attack1Width,attack1Length);
+			hitUp = false;
+			hitDown = false;
+			hitLeft = false;
+			hitRight = true;
 		}
 		
 		
@@ -397,14 +454,138 @@ public class Warrior extends Avatar {
 	}
 
 	
-	
+	int runTick = 0;
+	int hitTick = 0;
+	int spaceTicks = 3;
 	@Override
 	public void paint(Graphics2D g) {
+		ImageIcon img = HeroFrontStandby;
+		
 		// TODO Auto-generated method stub
-		g.setColor(Color.BLACK);
-		g.fill(player);
-		g.fill(attack1);
-		g.fill(attack2);
+		if(faceUp){
+			img = HeroBackStandby;
+			if(!attack1On && !attack2On){
+				hitTick = 0;
+			}
+		}else if(faceDown){
+			img = HeroFrontStandby;
+			if(!attack1On && !attack2On){
+				hitTick = 0;
+			}
+		}else if(faceLeft){
+			img = HeroLeftStandby;
+			if(!attack1On && !attack2On){
+				hitTick = 0;
+			}
+		}else if(faceRight){
+			img = HeroRightStandby;
+			if(!attack1On && !attack2On){
+				hitTick = 0;
+			}
+		}
+		if(walkUp){
+			if(runTick<spaceTicks){
+				runTick++;
+				img = HeroBackRun1;
+			}else if (runTick<spaceTicks*2){
+				img = HeroBackRun2;
+				runTick++;
+			}else{
+				runTick=0;
+			}
+		}else if(walkDown){
+			if(runTick<spaceTicks){
+				img = HeroFrontRun1;
+				runTick++;
+			}else if(runTick<spaceTicks*2){
+				img = HeroFrontRun2;
+				runTick++;
+			}else{
+				runTick=0;
+			}
+		}else if(walkLeft){
+			if(runTick<spaceTicks){
+				img = HeroLeftRun1;
+				runTick++;
+			}else if(runTick<spaceTicks*2){
+				img = HeroLeftRun2;
+				runTick++;
+			}else{
+				runTick = 0;
+			}
+		}else if(walkRight){
+			if(runTick<spaceTicks){
+				img = HeroRightRun1;
+				runTick++;
+			}else if(runTick<spaceTicks*2){
+				img = HeroRightRun2;
+				runTick++;
+			}else{
+				runTick = 0;
+			}
+		}
+		if(hitUp){
+			if(hitTick<spaceTicks){
+				img = HeroBackSwosh1;
+				hitTick++;
+			}else if(hitTick<spaceTicks*2){
+				img = HeroBackSwosh2;
+				hitTick++;
+			}else{
+				hitTick = 0;
+			}
+		}else if(hitDown){
+			if(hitTick<spaceTicks){
+				img = HeroFrontSwosh1;
+				hitTick++;
+			}else if(hitTick<spaceTicks*2){
+				img = HeroFrontSwosh2;
+				hitTick++;
+			}else{
+				hitTick = 0;
+			}
+		}else if(hitRight){
+			if(hitTick<spaceTicks-1){
+				img = HeroRightSwosh1;
+				hitTick++;
+			}else if(hitTick<spaceTicks*2){
+				img = HeroRightSwosh2;
+				hitTick++;
+			}else{
+				hitTick = 0;
+			}
+		}else if(hitLeft){
+			if(hitTick<spaceTicks){
+				img = HeroLeftSwosh1;
+				hitTick++;
+			}else if(hitTick<spaceTicks*2){
+				img = HeroLeftSwosh2;
+				hitTick++;
+			}else{
+				hitTick = 0;
+			}
+		}
+		if(attack2On){
+			if(hitTick<spaceTicks){
+				img = HeroSpin1;
+				hitTick++;
+			}else if(hitTick<spaceTicks*2){
+				img = HeroSpin2;
+				hitTick++;
+			}else{
+				hitTick = 0;
+			}
+		}
+		
+		//g.fill(player);
+		//g.fill(attack1);
+		//g.fill(attack2);
+		if(attack2On){
+			g.drawImage(img.getImage(), xPos-74 ,yPos-70, 210, 190, null);
+		}else{
+			g.drawImage(img.getImage(), xPos-44 ,yPos-55, 150, 150, null);
+		}
+		
 		
 		//JOACHIM
 		g.setColor(Color.ORANGE);

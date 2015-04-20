@@ -42,7 +42,7 @@ public class Boss{
 	private int xerathUltExplosionDiameter = 200;
 	private int xerathUltNotificationDiameter = 50;
 	
-	private int XERATH_ULT_DAMAGE = 1;
+	private int XERATH_ULT_DAMAGE = 10;
 	
 	private Ellipse2D.Double xerathUlt = new Ellipse2D.Double(-1000,-1000,50,50);
 	private Ellipse2D.Double xerathUltNotification = new Ellipse2D.Double(-1000,-1000,50,50);
@@ -152,6 +152,7 @@ public class Boss{
 			doXerathUlt();
 		}else{
 			startTimer=System.currentTimeMillis();
+			stopXerathUlt();
 		}
 		
 		

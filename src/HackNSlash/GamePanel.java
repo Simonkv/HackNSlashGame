@@ -1,6 +1,7 @@
 package HackNSlash;
 
 import java.awt.Graphics;
+import java.applet.*;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
@@ -57,6 +58,24 @@ public class GamePanel extends JPanel{
 	Goblin goblin11 = new Goblin(this,850,100);
 	Goblin goblin12 = new Goblin(this,950,100);
 	
+	Slime slime3 = new Slime(this,50,100);
+	Slime slime4 = new Slime(this,125,100);
+	Slime slime5 = new Slime(this,250,100);
+	Slime slime6 = new Slime(this,350,100);
+	Slime slime7 = new Slime(this,450,100);
+	Slime slime8 = new Slime(this,550,100);
+	Slime slime9 = new Slime(this,650,100);
+	Slime slime10 = new Slime(this,750,100);
+	Goblin goblin13 = new Goblin(this,100,300);
+	Goblin goblin14 = new Goblin(this,900,300);
+	Troll troll3 = new Troll(this,50,500);
+	Troll troll4 = new Troll(this,250,500);
+	Troll troll5 = new Troll(this,450,500);
+	Troll troll6 = new Troll(this,650,500);
+	Troll troll7 = new Troll(this,850,500);
+	
+	
+	
 	
 	
 	
@@ -96,6 +115,22 @@ public class GamePanel extends JPanel{
 		wave3.add(goblin10);
 		wave3.add(goblin11);
 		wave3.add(goblin12);
+		
+		wave4.add(slime3);
+		wave4.add(slime4);
+		wave4.add(slime5);
+		wave4.add(slime6);
+		wave4.add(slime7);
+		wave4.add(slime8);
+		wave4.add(slime9);
+		wave4.add(slime10);
+		wave4.add(goblin13);
+		wave4.add(goblin14);
+		wave4.add(troll3);
+		wave4.add(troll4);
+		wave4.add(troll5);
+		wave4.add(troll6);
+		wave4.add(troll7);
 		wavesStarted=true;
 	}
 	
@@ -151,6 +186,23 @@ public class GamePanel extends JPanel{
 				goblin11.update();
 				goblin12.update();
 			}else if(!waveIsOver(wave4)){
+				slime3.update();
+				slime4.update();
+				slime5.update();
+				slime6.update();
+				slime7.update();
+				slime8.update();
+				slime9.update();
+				slime10.update();
+				
+				goblin13.update();
+				goblin14.update();
+				
+				troll3.update();
+				troll4.update();
+				troll5.update();
+				troll6.update();
+				troll7.update();
 				
 			}else if(!waveIsOver(wave5)){
 				
@@ -175,6 +227,7 @@ public class GamePanel extends JPanel{
         	gameState = 4;
         	highscoreList.addResult();
         	waveTimer.started = false;
+        	highscoreList.save();
         	
         }
 	}
@@ -183,6 +236,45 @@ public class GamePanel extends JPanel{
 		slime = new Slime(this);
 		goblin = new Goblin(this);
 		troll = new Troll(this);
+		
+		slime1 = new Slime(this,100,100);
+		goblin1 = new Goblin(this,350,100);
+		troll1 = new Troll(this,500,100);
+		slime2 = new Slime(this,1050,100);
+		goblin2 = new Goblin(this,750,100);
+		troll2 = new Troll(this,600,100);
+		
+		
+		goblin3 = new Goblin(this,50,100);
+		goblin4 = new Goblin(this,150,100);
+		goblin5 = new Goblin(this,250,100);
+		goblin6 = new Goblin(this,350,100);
+		goblin7 = new Goblin(this,450,100);
+		goblin8 = new Goblin(this,550,100);
+		goblin9 = new Goblin(this,600,100);
+		goblin10 = new Goblin(this,750,100);
+		goblin11 = new Goblin(this,850,100);
+		goblin12 = new Goblin(this,950,100);
+		
+		slime3 = new Slime(this,100,100);
+		slime4 = new Slime(this,200,100);
+		slime5 = new Slime(this,300,100);
+		slime6 = new Slime(this,400,100);
+		slime7 = new Slime(this,500,100);
+		slime8 = new Slime(this,600,100);
+		slime9 = new Slime(this,700,100);
+		slime10 = new Slime(this,800,100);
+		goblin13 = new Goblin(this,100,300);
+		goblin14 = new Goblin(this,1050,300);
+		troll3 = new Troll(this,100,500);
+		troll4 = new Troll(this,300,500);
+		troll5 = new Troll(this,500,500);
+		troll6 = new Troll(this,700,500);
+		troll7 = new Troll(this,900,500);
+		
+		
+		
+		
 		player = new Warrior(this,500,500);
 		boss = new Boss(this);
 		wavesStarted=false;
@@ -226,7 +318,23 @@ public class GamePanel extends JPanel{
 				goblin11.paint(g2d);
 				goblin12.paint(g2d);
 			}else if(!waveIsOver(wave4)){
+				slime3.paint(g2d);
+				slime4.paint(g2d);
+				slime5.paint(g2d);
+				slime6.paint(g2d);
+				slime7.paint(g2d);
+				slime8.paint(g2d);
+				slime9.paint(g2d);
+				slime10.paint(g2d);
 				
+				goblin13.paint(g2d);
+				goblin14.paint(g2d);
+				
+				troll3.paint(g2d);
+				troll4.paint(g2d);
+				troll5.paint(g2d);
+				troll6.paint(g2d);
+				troll7.paint(g2d);
 			}else if(!waveIsOver(wave5)){
 				
 			}else if(!waveIsOver(wave6)){

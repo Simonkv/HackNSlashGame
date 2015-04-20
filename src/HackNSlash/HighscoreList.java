@@ -16,6 +16,7 @@ public class HighscoreList {
 	private GamePanel panel;
 	static Scanner scan = new Scanner(System.in);
 	
+	
 	private int newHighscore;
 	public int bufferScore;
 	ArrayList<Integer> highscores = new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0));
@@ -58,6 +59,7 @@ public class HighscoreList {
 		return Integer.toString(bufferScore);
 	}
 	
+	
 	public void addPoints(int score){
 		this.newHighscore+=score;
 	}
@@ -73,6 +75,8 @@ public class HighscoreList {
 	
 	
 	public void addResult(){
+		
+		
 		bufferScore = newHighscore;
 		if (newHighscore > highscores.get(size()-1)){
 			boolean higher = true;
