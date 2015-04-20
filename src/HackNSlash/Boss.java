@@ -80,7 +80,7 @@ public class Boss{
 	}
 	public void shootBalls(){
 		if(!gottenYPos){
-			yToGoTo = panel.player.yPos-(panel.player.playerSize/2);
+			yToGoTo = panel.player.yPos-(panel.player.playerSize/2)-20; //HER ENDRA Æ! MENE DEN SKYT BALLAN LITT LAVT!
 			gottenYPos = true;
 		}if (gottenYPos && !atYPos){
 			if(yPos<yToGoTo-40 && yPos<yToGoTo+40){
