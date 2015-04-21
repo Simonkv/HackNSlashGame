@@ -396,6 +396,8 @@ public class GamePanel extends JPanel{
 				if(!gaveWave1Hp){
 					if(player.health+20<=100){
 						player.health+=20;
+					}else{
+						player.health=100;
 					}
 					gaveWave1Hp=true;
 				}
@@ -409,6 +411,8 @@ public class GamePanel extends JPanel{
 				if(!gaveWave2Hp){
 					if(player.health+20<=100){
 						player.health+=20;
+					}else{
+						player.health=100;
 					}
 					gaveWave2Hp=true;
 				}
@@ -426,6 +430,8 @@ public class GamePanel extends JPanel{
 				if(!gaveWave3Hp){
 					if(player.health+20<=100){
 						player.health+=20;
+					}else{
+						player.health=100;
 					}
 					gaveWave3Hp=true;
 				}
@@ -450,6 +456,8 @@ public class GamePanel extends JPanel{
 				if(!gaveWave4Hp){
 					if(player.health+20<=100){
 						player.health+=20;
+					}else{
+						player.health=100;
 					}
 					gaveWave4Hp=true;
 				}
@@ -481,6 +489,8 @@ public class GamePanel extends JPanel{
 				if(!gaveWave5Hp){
 					if(player.health+20<=100){
 						player.health+=20;
+					}else{
+						player.health=100;
 					}
 					gaveWave5Hp=true;
 				}
