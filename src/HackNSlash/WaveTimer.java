@@ -46,9 +46,9 @@ public void paint(Graphics2D g){
         g.setColor(Color.GRAY);
         g.fill(timerFrame);
         g.setColor(Color.WHITE);
-        g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
+        g.setFont(new Font ("Times New Roman", Font.BOLD, 25));
         g.drawString(timeText, 1025, 33);
-        g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
+        g.setFont(new Font ("Times New Roman", Font.BOLD, 25));
         g.drawString(timerString, 1100, 33);
 }
 

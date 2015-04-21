@@ -38,7 +38,7 @@ public class Boss{
 	private long startTimer = System.currentTimeMillis();
 	private int health = 600;
 	private int healthBarLength = 500;
-	private String bossName = "Penis";
+	private String bossName = "Gunnar";
 	private int bossPoints = 10000;
 	private Rectangle2D.Double healthbar = new Rectangle2D.Double((panel.SCREEN_WIDTH/2)-healthBarLength/2, 10, healthBarLength, 30);
 	private Rectangle2D.Double bossRectangle = new Rectangle2D.Double(xPos, yPos, bossWidth, bossHeight);
@@ -151,6 +151,12 @@ public class Boss{
 				leftShot = new Ellipse2D.Double(bulletXMinus, yPos+(bossHeight/2)-(ballDiameter/2) ,ballDiameter,ballDiameter);
 				rightShot = new Ellipse2D.Double(bulletXPlus,yPos+(bossHeight/2)-(ballDiameter/2),ballDiameter,ballDiameter);
 			}else{
+				bossStandby = false;
+				doXerathUlt = false;
+				shootFlames = false;
+				startJump = true;
+				jump = false;
+				spin = false;
 				stopShootBalls();
 			}
 			
@@ -339,7 +345,7 @@ public class Boss{
 		g.drawImage(FireballLeft.getImage(), (int)leftShot.getX()+5 ,(int)leftShot.getY()-12, 80, 80, null);
 		g.drawImage(FireballRight.getImage(), (int)rightShot.getX()-5 ,(int)rightShot.getY()-12, 80, 80, null);
 		g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
-		g.drawString(bossName+": ", (int)healthbar.getX()-100, (int)(healthbar.getY()+20));
+		g.drawString(bossName+": ", (int)healthbar.getX()-130, (int)(healthbar.getY()+20));
 		g.fill(healthbar);
 		//g.fill(bossRectangle);
 		
@@ -382,7 +388,11 @@ public class Boss{
 		}else if(jump){
 			img = BossPostJump;
 		}
-		g.drawImage(img.getImage(), xPos ,yPos, bossWidth, bossHeight, null);
+		if(shootFlames){
+			g.drawImage(img.getImage(), xPos ,yPos, bossWidth+20, bossHeight, null);
+		}else{
+			g.drawImage(img.getImage(), xPos ,yPos, bossWidth, bossHeight, null);
+		}
 		g.setColor(Color.BLACK);
 		
 	}

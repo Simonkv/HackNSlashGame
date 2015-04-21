@@ -298,6 +298,11 @@ public class GamePanel extends JPanel{
 	}
 	
 	public void reset(){
+		gaveWave1Hp=false;
+		gaveWave2Hp=false;
+		gaveWave3Hp=false;
+		gaveWave4Hp=false;
+		gaveWave5Hp=false;
 		slime = new Slime(this);
 		goblin = new Goblin(this);
 		troll = new Troll(this);
@@ -365,6 +370,11 @@ public class GamePanel extends JPanel{
 	public void loadHighscores(){
 		highscoreList.loadHighscores();
 	}
+	boolean gaveWave1Hp=false;
+	boolean gaveWave2Hp=false;
+	boolean gaveWave3Hp=false;
+	boolean gaveWave4Hp=false;
+	boolean gaveWave5Hp=false;
 	
 	public void paint(Graphics g){
 		super.paint(g);
@@ -377,11 +387,18 @@ public class GamePanel extends JPanel{
 			arena.paint(g2d);
 			
 			if(!waveIsOver(wave1)){
+				
 				//boss.paint(g2d);
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);
 			}else if(!waveIsOver(wave2)){
+				if(!gaveWave1Hp){
+					if(player.health+20<=100){
+						player.health+=20;
+					}
+					gaveWave1Hp=true;
+				}
 				slime1.paint(g2d);
 				troll1.paint(g2d);
 				goblin1.paint(g2d);
@@ -389,6 +406,12 @@ public class GamePanel extends JPanel{
 				troll2.paint(g2d);
 				goblin2.paint(g2d);
 			}else if(!waveIsOver(wave3)){
+				if(!gaveWave2Hp){
+					if(player.health+20<=100){
+						player.health+=20;
+					}
+					gaveWave2Hp=true;
+				}
 				goblin3.paint(g2d);
 				goblin4.paint(g2d);
 				goblin5.paint(g2d);
@@ -400,6 +423,12 @@ public class GamePanel extends JPanel{
 				goblin11.paint(g2d);
 				goblin12.paint(g2d);
 			}else if(!waveIsOver(wave4)){
+				if(!gaveWave3Hp){
+					if(player.health+20<=100){
+						player.health+=20;
+					}
+					gaveWave3Hp=true;
+				}
 				slime3.paint(g2d);
 				slime4.paint(g2d);
 				slime5.paint(g2d);
@@ -418,6 +447,13 @@ public class GamePanel extends JPanel{
 				troll6.paint(g2d);
 				troll7.paint(g2d);
 			}else if(!waveIsOver(wave5)){
+				if(!gaveWave4Hp){
+					if(player.health+20<=100){
+						player.health+=20;
+					}
+					gaveWave4Hp=true;
+				}
+				
 				
 				slime11.paint(g2d);
 				slime12.paint(g2d);
@@ -442,6 +478,12 @@ public class GamePanel extends JPanel{
 			
 			
 			else{
+				if(!gaveWave5Hp){
+					if(player.health+20<=100){
+						player.health+=20;
+					}
+					gaveWave5Hp=true;
+				}
 				boss.paint(g2d);
 			}
 			player.paint(g2d);
