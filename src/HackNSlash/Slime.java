@@ -6,10 +6,15 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 
 public class Slime extends Avatar implements MonsterAI{
 	
 	public GamePanel panel;
+	
+	ImageIcon Slime1 = new ImageIcon ((getClass().getResource( "/Images/Slime1.png" )));
+	ImageIcon Slime2 = new ImageIcon ((getClass().getResource( "/Images/Slime2.png" )));
 	
 	private boolean faceUp = false;
 	private boolean faceDown = true;
@@ -155,25 +160,27 @@ public class Slime extends Avatar implements MonsterAI{
 		// Ignore
 	}
 
+	int walkTic=0;
+	ImageIcon img = new ImageIcon();
 	@Override
 	public void paint(Graphics2D g) {
-		if(faceUp){
-			g.setColor(Color.PINK);
-		}
-		if(faceDown){
-			g.setColor(Color.ORANGE);
-		}
-		if(faceLeft){
-			g.setColor(Color.RED);
-		}
-		if(faceRight){
-			g.setColor(Color.BLUE);
+		
+		if(walkTic<5){
+			img = Slime1;
+			walkTic++;
+		}else if(walkTic<10){
+			img = Slime2;
+			walkTic++;
+		}else{
+			walkTic=0;
 		}
 		
 		//g.fill(aggroCircle);
 		
 		if (isAlive()){
-			g.fill(slime);
+			//g.fill(slime);
+			g.drawImage(img.getImage(), xPos-5 ,yPos-5, 35, 35, null);
+			
 			g.setColor(Color.RED);
 			g.fill(healthbar);
 		}
@@ -531,7 +538,7 @@ public class Slime extends Avatar implements MonsterAI{
 						yPos += -(SLIME_SIZE * 3);
 					}
 				}
-				reduceHealth(5);
+				reduceHealth(3);
 			}
 		}
 	}

@@ -11,11 +11,14 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 
+import javax.swing.ImageIcon;
+
 public class HighscoreList {
 	
 	private GamePanel panel;
 	static Scanner scan = new Scanner(System.in);
 	
+	ImageIcon HighscoreListSkeleton = new ImageIcon ((getClass().getResource( "/Images/HighscoreListSkeleton.png" )));
 	
 	private int newHighscore;
 	public int bufferScore;
@@ -77,6 +80,14 @@ public class HighscoreList {
 	public void addResult(){
 		
 		
+		
+		if(panel.gameOver.won){
+			System.out.println("DID WIN!");
+			if(1000-panel.waveTimer.seconds>0){
+				newHighscore = newHighscore + ((1000-panel.waveTimer.seconds)*10);
+			}
+			
+		}
 		bufferScore = newHighscore;
 		if (newHighscore > highscores.get(size()-1)){
 			boolean higher = true;
@@ -98,23 +109,26 @@ public class HighscoreList {
 	}
 	
 	public void paint(Graphics2D g){
-		g.setColor(Color.BLACK);
-		g.fill(background);
-		g.setColor(Color.GRAY);
-		g.fill(HSWall);
-		g.setColor(Color.RED);
-		g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
-        g.drawString("Your highscores:", 310, 90);
-        g.drawString("1." + "   " + getElement(0), 310, 150);
-        g.drawString("2." + "   " + getElement(1), 310, 200);
-        g.drawString("3." + "   " + getElement(2), 310, 250);
-        g.drawString("4." + "   " + getElement(3), 310, 300);
-        g.drawString("5." + "   " + getElement(4), 310, 350);
-        g.drawString("6." + "   " + getElement(5), 310, 400);
-        g.drawString("7." + "   " + getElement(6), 310, 450);
-        g.drawString("8." + "   " + getElement(7), 310, 500);
-        g.drawString("9." + "   " + getElement(8), 310, 550);
-        g.drawString("10." + " " + getElement(9), 310, 600);
+		
+		g.drawImage(HighscoreListSkeleton.getImage(), 0 ,0, 1200, 700, null);
+		
+		//g.setColor(Color.BLACK);
+		//g.fill(background);
+		//g.setColor(Color.GRAY);
+		//g.fill(HSWall);
+		g.setColor(Color.ORANGE);
+		g.setFont(new Font ("Times New Roman", Font.BOLD, 50));
+        //g.drawString("Your highscores:", 310, 90);
+        g.drawString(""+ getElement(0), 345, 210);
+        g.drawString(""+ getElement(1), 345, 300);
+        g.drawString(""+ getElement(2), 345, 390);
+        g.drawString(""+ getElement(3), 345, 480);
+        g.drawString(""+ getElement(4), 345, 570);
+        g.drawString(""+ getElement(5), 775, 210);
+        g.drawString(""+ getElement(6), 775, 300);
+        g.drawString(""+ getElement(7), 775, 390);
+        g.drawString(""+ getElement(8), 775, 480);
+        g.drawString(""+ getElement(9), 775, 570);
         
 		
 	}

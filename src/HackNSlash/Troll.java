@@ -6,10 +6,32 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 public class Troll extends Avatar implements MonsterAI{
 
 public GamePanel panel;
+
+
+	ImageIcon TrollFrontStandby = new ImageIcon ((getClass().getResource( "/Images/TrollFrontStandby.png" )));
+	ImageIcon TrollFrontRun1 = new ImageIcon ((getClass().getResource( "/Images/TrollFrontRun1.png" )));
+	ImageIcon TrollFrontRun2 = new ImageIcon ((getClass().getResource( "/Images/TrollFrontRun2.png" )));
+
+	ImageIcon TrollBackStandby = new ImageIcon ((getClass().getResource( "/Images/TrollBackStandby.png" )));
+	ImageIcon TrollBackRun1 = new ImageIcon ((getClass().getResource( "/Images/TrollBackRun1.png" )));
+	ImageIcon TrollBackRun2 = new ImageIcon ((getClass().getResource( "/Images/TrollBackRun2.png" )));
+
+	ImageIcon TrollLeftStandby = new ImageIcon ((getClass().getResource( "/Images/TrollLeftStandby.png" )));
+	ImageIcon TrollLeftRun1 = new ImageIcon ((getClass().getResource( "/Images/TrollLeftRun1.png" )));
+	ImageIcon TrollLeftRun2 = new ImageIcon ((getClass().getResource( "/Images/TrollLeftRun2.png" )));
+
+	ImageIcon TrollRightStandby = new ImageIcon ((getClass().getResource( "/Images/TrollRightStandby.png" )));
+	ImageIcon TrollRightRun1 = new ImageIcon ((getClass().getResource( "/Images/TrollRightRun1.png" )));
+	ImageIcon TrollRightRun2 = new ImageIcon ((getClass().getResource( "/Images/TrollRightRun2.png" )));
 	
+	ImageIcon img = TrollFrontStandby;
+	
+
 	private int ySpeed=0;
 	private int xSpeed=0;
 	private boolean aggro;
@@ -50,7 +72,7 @@ public GamePanel panel;
 		idleTimer();
 		troll = new Rectangle2D.Double(yPos, xPos, TROLL_SIZE, TROLL_SIZE);
 		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-TROLL_SIZE)/2, xPos-(AGGRO_RANGE-TROLL_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
-		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 15), getHealth(), 10);
+		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 50), getHealth(), 10);
 		this.panel = panel;
 		setAggro();
 	}
@@ -71,7 +93,7 @@ public GamePanel panel;
 		idleTimer();
 		troll = new Rectangle2D.Double(yPos, xPos, TROLL_SIZE, TROLL_SIZE);
 		aggroCircle = new Ellipse2D.Double(yPos-(AGGRO_RANGE-TROLL_SIZE)/2, xPos-(AGGRO_RANGE-TROLL_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
-		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 15), getHealth(), 10);
+		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 50), getHealth(), 10);
 		this.panel = panel;
 		setAggro();
 	}
@@ -146,13 +168,69 @@ public GamePanel panel;
 		// Ignore
 	}
 
+	int walkTic = 0;
 	@Override
 	public void paint(Graphics2D g) {
 		g.setColor(Color.RED);
 		//g.fill(aggroCircle);
 		g.setColor(Color.LIGHT_GRAY);
 		if (isAlive()){
-			g.fill(troll);
+			//g.fill(troll);
+			if(aggro && panel.player.yPos>yPos && panel.player.xPos<xPos+70 && panel.player.xPos>xPos-70){
+				if(walkTic<5){
+					img = TrollFrontRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = TrollFrontRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+				
+			}else if(aggro && panel.player.yPos<yPos && panel.player.xPos<xPos+70 && panel.player.xPos>xPos-70){
+				if(walkTic<5){
+					img = TrollBackRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = TrollBackRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}
+			else if(aggro && panel.player.xPos>xPos){
+				if(walkTic<5){
+					img = TrollRightRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = TrollRightRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}else if(aggro && panel.player.xPos<xPos){
+				if(walkTic<5){
+					img = TrollLeftRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = TrollLeftRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}
+			
+			else{
+				if(panel.player.yPos>yPos){
+					img = TrollFrontStandby;
+				}else if(panel.player.yPos<yPos){
+					img = TrollBackStandby;
+				}else{
+					img = TrollFrontStandby;
+				}
+			}
+			g.drawImage(img.getImage(), xPos-30 ,yPos-50, 150, 150, null);
+			
 			g.setColor(Color.RED);
 			g.fill(healthbar);
 		}
@@ -338,7 +416,7 @@ public GamePanel panel;
 		//System.out.println(playerYBigger + "Y");
 		//System.out.println(playerXBigger + "X");
 		troll = new Rectangle2D.Double(xPos, yPos, TROLL_SIZE, TROLL_SIZE);
-		healthbar = new Rectangle2D.Double(troll.getX(), (troll.getY() - 15), getHealth(), 10);
+		healthbar = new Rectangle2D.Double(troll.getX()+5, (troll.getY() - 50), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-TROLL_SIZE)/2, yPos-(AGGRO_RANGE-TROLL_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
 		}
 		else {
@@ -461,7 +539,7 @@ public GamePanel panel;
 						yPos += -(TROLL_SIZE / 2);
 					}
 				}
-				reduceHealth(5);
+				reduceHealth(3);
 			}
 		}
 	}

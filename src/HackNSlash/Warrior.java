@@ -11,32 +11,35 @@ public class Warrior extends Avatar {
 	
 	public GamePanel panel;
 	
-	ImageIcon HeroFrontStandby = new ImageIcon ( "Images/HeroFrontStandby.png" );
-	ImageIcon HeroFrontRun1 = new ImageIcon ( "Images/HeroFrontRun1.png" );
-	ImageIcon HeroFrontRun2 = new ImageIcon ( "Images/HeroFrontRun2.png" );
-	ImageIcon HeroFrontSwosh1 = new ImageIcon ( "Images/HeroFrontSwosh1.png" );
-	ImageIcon HeroFrontSwosh2 = new ImageIcon ( "Images/HeroFrontSwosh2.png" );
 	
-	ImageIcon HeroBackStandby = new ImageIcon ( "Images/HeroBackStandby.png" );
-	ImageIcon HeroBackRun1 = new ImageIcon ( "Images/HeroBackRun1.png" );
-	ImageIcon HeroBackRun2 = new ImageIcon ( "Images/HeroBackRun2.png" );
-	ImageIcon HeroBackSwosh1 = new ImageIcon ( "Images/HeroBackSwosh1.png" );
-	ImageIcon HeroBackSwosh2 = new ImageIcon ( "Images/HeroBackSwosh2.png" );
+	ImageIcon HeroFrontStandby = new ImageIcon ((getClass().getResource( "/Images/HeroFrontStandby.png" )));
+	ImageIcon HeroFrontRun1 = new ImageIcon ((getClass().getResource( "/Images/HeroFrontRun1.png" )));
+	ImageIcon HeroFrontRun2 = new ImageIcon ((getClass().getResource( "/Images/HeroFrontRun2.png" )));
+	ImageIcon HeroFrontSwosh1 = new ImageIcon ((getClass().getResource( "/Images/HeroFrontSwosh1.png" )));
+	ImageIcon HeroFrontSwosh2 = new ImageIcon ((getClass().getResource( "/Images/HeroFrontSwosh2.png" )));
 	
-	ImageIcon HeroLeftStandby = new ImageIcon ( "Images/HeroLeftStandby.png" );
-	ImageIcon HeroLeftRun1 = new ImageIcon ( "Images/HeroLeftRun1.png" );
-	ImageIcon HeroLeftRun2 = new ImageIcon ( "Images/HeroLeftRun2.png" );
-	ImageIcon HeroLeftSwosh1 = new ImageIcon ( "Images/HeroLeftSwosh1.png" );
-	ImageIcon HeroLeftSwosh2 = new ImageIcon ( "Images/HeroLeftSwosh2v3.png" );
+	ImageIcon HeroBackStandby = new ImageIcon ((getClass().getResource( "/Images/HeroBackStandby.png" )));
+	ImageIcon HeroBackRun1 = new ImageIcon ((getClass().getResource( "/Images/HeroBackRun1.png" )));
+	ImageIcon HeroBackRun2 = new ImageIcon ((getClass().getResource( "/Images/HeroBackRun2.png" )));
+	ImageIcon HeroBackSwosh1 = new ImageIcon ((getClass().getResource( "/Images/HeroBackSwosh1.png" )));
+	ImageIcon HeroBackSwosh2 = new ImageIcon ((getClass().getResource( "/Images/HeroBackSwosh2.png" )));
 	
-	ImageIcon HeroRightStandby = new ImageIcon ( "Images/HeroRightStandby.png" );
-	ImageIcon HeroRightRun1 = new ImageIcon ( "Images/HeroRightRun1.png" );
-	ImageIcon HeroRightRun2 = new ImageIcon ( "Images/HeroRightRun2.png" );
-	ImageIcon HeroRightSwosh1 = new ImageIcon ( "Images/HeroRightSwosh1.png" );
-	ImageIcon HeroRightSwosh2 = new ImageIcon ( "Images/HeroRightSwosh2v4.png" );
+	ImageIcon HeroLeftStandby = new ImageIcon ((getClass().getResource( "/Images/HeroLeftStandby.png" )));
+	ImageIcon HeroLeftRun1 = new ImageIcon ((getClass().getResource( "/Images/HeroLeftRun1.png" )));
+	ImageIcon HeroLeftRun2 = new ImageIcon ((getClass().getResource( "/Images/HeroLeftRun2.png" )));
+	ImageIcon HeroLeftSwosh1 = new ImageIcon ((getClass().getResource( "/Images/HeroLeftSwosh1.png" )));
+	ImageIcon HeroLeftSwosh2 = new ImageIcon ((getClass().getResource( "/Images/HeroLeftSwosh2v3.png" )));
 	
-	ImageIcon HeroSpin1 = new ImageIcon ( "Images/HeroSpin1.png" );
-	ImageIcon HeroSpin2 = new ImageIcon ( "Images/HeroSpin2.png" );
+	ImageIcon HeroRightStandby = new ImageIcon ((getClass().getResource( "/Images/HeroRightStandby.png" )));
+	ImageIcon HeroRightRun1 = new ImageIcon ((getClass().getResource( "/Images/HeroRightRun1.png" )));
+	ImageIcon HeroRightRun2 = new ImageIcon ((getClass().getResource( "/Images/HeroRightRun2.png" )));
+	ImageIcon HeroRightSwosh1 = new ImageIcon ((getClass().getResource( "/Images/HeroRightSwosh1.png" )));
+	ImageIcon HeroRightSwosh2 = new ImageIcon ((getClass().getResource( "/Images/HeroRightSwosh2v4.png" )));
+	
+	ImageIcon HeroSpin1 = new ImageIcon ((getClass().getResource( "/Images/HeroSpin1.png" )));
+	ImageIcon HeroSpin2 = new ImageIcon ((getClass().getResource( "/Images/HeroSpin2.png" )));
+	
+	ImageIcon img = HeroFrontStandby;
 	
 	
 	
@@ -65,8 +68,8 @@ public class Warrior extends Avatar {
 	private int attack1Length = 130;
 	private int attack1Width = 50;
 	private int attack2Diameter = 150;
-	public int attack1Damage = 10;
-	public int attack2Damage = 5;
+	public int attack1Damage = 7;
+	public int attack2Damage = 2;
 	
 	private int ySpeed=0;
 	private int xSpeed=0;
@@ -459,7 +462,7 @@ public class Warrior extends Avatar {
 	int spaceTicks = 3;
 	@Override
 	public void paint(Graphics2D g) {
-		ImageIcon img = HeroFrontStandby;
+		
 		
 		// TODO Auto-generated method stub
 		if(faceUp){

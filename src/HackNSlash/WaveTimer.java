@@ -12,7 +12,7 @@ public class WaveTimer {
 public GamePanel panel;
 public boolean started=false;
 private long startTime;
-private String timerString;
+private String timerString="0";
 private String timeText = "Time:";
 
 private int timerFrameWidth = 140;

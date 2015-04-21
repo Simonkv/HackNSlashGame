@@ -6,9 +6,30 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 public class Goblin extends Avatar implements MonsterAI{
 
 public GamePanel panel;
+
+
+	ImageIcon GoblinFrontStandby = new ImageIcon ((getClass().getResource( "/Images/GoblinFrontStandby.png" )));
+	ImageIcon GoblinFrontRun1 = new ImageIcon ((getClass().getResource( "/Images/GoblinFrontRun1.png" )));
+	ImageIcon GoblinFrontRun2 = new ImageIcon ((getClass().getResource( "/Images/GoblinFrontRun2.png" )));
+	
+	ImageIcon GoblinBackStandby = new ImageIcon ((getClass().getResource( "/Images/GoblinBackStandby.png" )));
+	ImageIcon GoblinBackRun1 = new ImageIcon ((getClass().getResource( "/Images/GoblinBackRun1.png" )));
+	ImageIcon GoblinBackRun2 = new ImageIcon ((getClass().getResource( "/Images/GoblinBackRun2.png" )));
+	
+	ImageIcon GoblinLeftStandby = new ImageIcon ((getClass().getResource( "/Images/GoblinLeftStandby.png" )));
+	ImageIcon GoblinLeftRun1 = new ImageIcon ((getClass().getResource( "/Images/GoblinLeftRun1.png" )));
+	ImageIcon GoblinLeftRun2 = new ImageIcon ((getClass().getResource( "/Images/GoblinLeftRun2.png" )));
+	
+	ImageIcon GoblinRightStandby = new ImageIcon ((getClass().getResource( "/Images/GoblinRightStandby.png" )));
+	ImageIcon GoblinRightRun1 = new ImageIcon ((getClass().getResource( "/Images/GoblinRightRun1.png" )));
+	ImageIcon GoblinRightRun2 = new ImageIcon ((getClass().getResource( "/Images/GoblinRightRun2.png" )));
+	
+	ImageIcon img = GoblinFrontStandby;
 	
 	private int ySpeed=0;
 	private int xSpeed=0;
@@ -146,13 +167,71 @@ public GamePanel panel;
 		// Ignore
 	}
 
+	int walkTic = 0;
 	@Override
 	public void paint(Graphics2D g) {
+		
+		
 		g.setColor(Color.RED);
 		//g.fill(aggroCircle);
 		g.setColor(Color.CYAN);
 		if (isAlive()){
-			g.fill(goblin);
+			//g.fill(goblin);
+			if(aggro && panel.player.yPos>yPos && panel.player.xPos<xPos+70 && panel.player.xPos>xPos-70){
+				if(walkTic<5){
+					img = GoblinFrontRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = GoblinFrontRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+				
+			}else if(aggro && panel.player.yPos<yPos && panel.player.xPos<xPos+70 && panel.player.xPos>xPos-70){
+				if(walkTic<5){
+					img = GoblinBackRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = GoblinBackRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}
+			else if(aggro && panel.player.xPos>xPos){
+				if(walkTic<5){
+					img = GoblinRightRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = GoblinRightRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}else if(aggro && panel.player.xPos<xPos){
+				if(walkTic<5){
+					img = GoblinLeftRun1;
+					walkTic++;
+				}else if(walkTic<10){
+					img = GoblinLeftRun2;
+					walkTic++;
+				}else{
+					walkTic=0;
+				}
+			}
+			
+			else{
+				if(panel.player.yPos>yPos){
+					img = GoblinFrontStandby;
+				}else if(panel.player.yPos<yPos){
+					img = GoblinBackStandby;
+				}else{
+					img = GoblinFrontStandby;
+				}
+			}
+			g.drawImage(img.getImage(), xPos-15 ,yPos-20, 90, 90, null);
+			
 			g.setColor(Color.RED);
 			g.fill(healthbar);
 		}
@@ -338,7 +417,7 @@ public GamePanel panel;
 		//System.out.println(playerYBigger + "Y");
 		//System.out.println(playerXBigger + "X");
 		goblin = new Rectangle2D.Double(xPos, yPos, GOBLIN_SIZE, GOBLIN_SIZE);
-		healthbar = new Rectangle2D.Double(goblin.getX(), (goblin.getY() - 15), getHealth(), 10);
+		healthbar = new Rectangle2D.Double(goblin.getX()+7, (goblin.getY() - 30), getHealth(), 10);
 		aggroCircle = new Ellipse2D.Double(xPos-(AGGRO_RANGE-GOBLIN_SIZE)/2, yPos-(AGGRO_RANGE-GOBLIN_SIZE)/2 , AGGRO_RANGE, AGGRO_RANGE);
 		}
 		else {
@@ -461,7 +540,7 @@ public GamePanel panel;
 						yPos += -(GOBLIN_SIZE);
 					}
 				}
-				reduceHealth(10);
+				reduceHealth(3);
 			}
 		}
 	}

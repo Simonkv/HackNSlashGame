@@ -68,11 +68,11 @@ public class GamePanel extends JPanel{
 	Slime slime10 = new Slime(this,750,100);
 	Goblin goblin13 = new Goblin(this,100,300);
 	Goblin goblin14 = new Goblin(this,900,300);
-	Troll troll3 = new Troll(this,50,500);
-	Troll troll4 = new Troll(this,250,500);
-	Troll troll5 = new Troll(this,450,500);
-	Troll troll6 = new Troll(this,650,500);
-	Troll troll7 = new Troll(this,850,500);
+	Troll troll3 = new Troll(this,50,450);
+	Troll troll4 = new Troll(this,250,450);
+	Troll troll5 = new Troll(this,450,450);
+	Troll troll6 = new Troll(this,650,450);
+	Troll troll7 = new Troll(this,850,450);
 	
 	
 	
@@ -164,6 +164,7 @@ public class GamePanel extends JPanel{
 				addAllEnemies();
 			}
 			if(!waveIsOver(wave1)){
+				//boss.update();
 				slime.update();
 				troll.update();
 				goblin.update();
@@ -224,6 +225,11 @@ public class GamePanel extends JPanel{
 	
 	public void checkGameOver(){
 		if(player.health<=0 || boss.isDead()){
+			if(player.health<=0){
+				gameOver.won = false;
+			}else if(boss.isDead()){
+				gameOver.won = true;
+			}
         	gameState = 4;
         	highscoreList.addResult();
         	waveTimer.started = false;
@@ -266,11 +272,11 @@ public class GamePanel extends JPanel{
 		slime10 = new Slime(this,800,100);
 		goblin13 = new Goblin(this,100,300);
 		goblin14 = new Goblin(this,1050,300);
-		troll3 = new Troll(this,100,500);
-		troll4 = new Troll(this,300,500);
-		troll5 = new Troll(this,500,500);
-		troll6 = new Troll(this,700,500);
-		troll7 = new Troll(this,900,500);
+		troll3 = new Troll(this,100,450);
+		troll4 = new Troll(this,300,450);
+		troll5 = new Troll(this,500,450);
+		troll6 = new Troll(this,700,450);
+		troll7 = new Troll(this,900,450);
 		
 		
 		
@@ -296,6 +302,7 @@ public class GamePanel extends JPanel{
 			arena.paint(g2d);
 			player.paint(g2d);
 			if(!waveIsOver(wave1)){
+				
 				slime.paint(g2d);
 				troll.paint(g2d);
 				goblin.paint(g2d);

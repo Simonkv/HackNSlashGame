@@ -6,10 +6,16 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.ImageIcon;
+
 public class Boss{
 	
 	private GamePanel panel;
 	
+	ImageIcon FireballLeft = new ImageIcon ((getClass().getResource( "/Images/FireballLeft.png" )));
+	ImageIcon FireballRight = new ImageIcon ((getClass().getResource( "/Images/FireballRight.png" )));
+	ImageIcon ExplosionNotification = new ImageIcon ((getClass().getResource( "/Images/ExplosionNotification.png" )));
+	ImageIcon ExplosionFlame = new ImageIcon ((getClass().getResource( "/Images/ExplosionFlame.png" )));
 	
 	
 	private int bossWidth=200;
@@ -19,7 +25,7 @@ public class Boss{
 	private int yPos = 100;
 	
 	private long startTimer = System.currentTimeMillis();
-	private int health = 500;
+	private int health = 600;
 	private int healthBarLength = 500;
 	private String bossName = "Penis";
 	private int bossPoints = 10000;
@@ -39,7 +45,7 @@ public class Boss{
 	private int xerathUltX;
 	private int xerathUltY;
 	
-	private int xerathUltExplosionDiameter = 200;
+	private int xerathUltExplosionDiameter = 150;
 	private int xerathUltNotificationDiameter = 50;
 	
 	private int XERATH_ULT_DAMAGE = 10;
@@ -72,7 +78,6 @@ public class Boss{
 	
 	public void reset(){
 		health = 500;
-		startTimer=System.currentTimeMillis();
 	}
 	
 	Boss(GamePanel panel){
@@ -130,7 +135,7 @@ public class Boss{
 		
 		//HARDKODA BOSS STATE!!!
 		takeDamage();
-		if(System.currentTimeMillis()-startTimer<=5000){
+		if(System.currentTimeMillis()-startTimer<=2500){
 			
 		}
 		else if(System.currentTimeMillis()-startTimer<=10000){
@@ -253,16 +258,22 @@ public class Boss{
 	
 	
 	public void paint(Graphics2D g){
-		g.fill(bossRectangle);
+		
 		g.setColor(Color.RED);
-		g.fill(xerathUlt);
-		g.fill(xerathUltNotification);
+		//g.fill(xerathUlt);
+		//g.fill(xerathUltNotification);
+		//g.fill(leftShot);
+		//g.fill(rightShot);
+		g.drawImage(ExplosionNotification.getImage(), (int)(xerathUltNotification.getX()+xerathUltNotification.width/2)-75 ,(int)(xerathUltNotification.getY()+xerathUltNotification.height/2)-75, 150, 150, null);
+		g.drawImage(ExplosionFlame.getImage(), (int)(xerathUlt.getX()+xerathUlt.width/2)-90 ,(int)(xerathUlt.getY()+xerathUlt.height/2)-90, 180, 180, null);
+		g.drawImage(FireballLeft.getImage(), (int)leftShot.getX()+5 ,(int)leftShot.getY()-12, 80, 80, null);
+		g.drawImage(FireballRight.getImage(), (int)rightShot.getX()-5 ,(int)rightShot.getY()-12, 80, 80, null);
 		g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
 		g.drawString(bossName+": ", (int)healthbar.getX()-100, (int)(healthbar.getY()+20));
 		g.fill(healthbar);
+		g.fill(bossRectangle);
 		g.setColor(Color.BLACK);
-		g.fill(leftShot);
-		g.fill(rightShot);
+		
 	}
 
 }

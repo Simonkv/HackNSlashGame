@@ -10,7 +10,7 @@ public class Arena extends GameMap{
 	
 	private GamePanel panel;
 	private final int WALL_THICKNESS = 50;
-	ImageIcon arena = new ImageIcon ( "Images/ArenaInGamePNG.png" );
+	ImageIcon arena = new ImageIcon ((getClass().getResource( "/Images/ArenaInGameESC.png" )));
 	
 	Rectangle2D.Double grass = new Rectangle2D.Double(0, 0, panel.SCREEN_WIDTH, panel.SCREEN_HEIGHT);
 	Rectangle2D.Double leftWall = new Rectangle2D.Double(0, 0, WALL_THICKNESS, panel.SCREEN_HEIGHT);
