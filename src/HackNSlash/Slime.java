@@ -425,6 +425,7 @@ public class Slime extends Avatar implements MonsterAI{
 
 	@Override
 	public void knockBack() {
+		if(!slime.intersects(panel.arena.rightWall) && !slime.intersects(panel.arena.topWall) && !slime.intersects(panel.arena.bottomWall) && !slime.intersects(panel.arena.leftWall)){
 		if (isAlive()){
 			if (slime.intersects(panel.player.attack1)){
 				if (yPriority){
@@ -540,6 +541,7 @@ public class Slime extends Avatar implements MonsterAI{
 				}
 				reduceHealth(3);
 			}
+		}
 		}
 	}
 	

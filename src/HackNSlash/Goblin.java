@@ -427,6 +427,7 @@ public GamePanel panel;
 
 	@Override
 	public void knockBack() {
+		if(!goblin.intersects(panel.arena.rightWall) && !goblin.intersects(panel.arena.topWall) && !goblin.intersects(panel.arena.bottomWall) && !goblin.intersects(panel.arena.leftWall)){
 		if (isAlive()){
 			if (goblin.intersects(panel.player.attack1)){
 				if (yPriority){
@@ -542,6 +543,7 @@ public GamePanel panel;
 				}
 				reduceHealth(3);
 			}
+		}
 		}
 	}
 	

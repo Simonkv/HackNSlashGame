@@ -17,6 +17,17 @@ public class Boss{
 	ImageIcon ExplosionNotification = new ImageIcon ((getClass().getResource( "/Images/ExplosionNotification.png" )));
 	ImageIcon ExplosionFlame = new ImageIcon ((getClass().getResource( "/Images/ExplosionFlame.png" )));
 	
+	ImageIcon BossStandby1 = new ImageIcon ((getClass().getResource( "/Images/BossStandby1.png" )));
+	ImageIcon BossStandby2 = new ImageIcon ((getClass().getResource( "/Images/BossStandby2.png" )));
+	ImageIcon BossPreJump = new ImageIcon ((getClass().getResource( "/Images/BossPreJump.png" )));
+	ImageIcon BossPostJump = new ImageIcon ((getClass().getResource( "/Images/BossPostJump.png" )));
+	ImageIcon BossFireSides = new ImageIcon ((getClass().getResource( "/Images/BossFireSides.png" )));
+	ImageIcon BossFireUp1 = new ImageIcon ((getClass().getResource( "/Images/BossFireUp1.png" )));
+	ImageIcon BossFireUp2 = new ImageIcon ((getClass().getResource( "/Images/BossFireUp2.png" )));
+	ImageIcon BossSpin1 = new ImageIcon ((getClass().getResource( "/Images/BossSpin1.png" )));
+	ImageIcon BossSpin2 = new ImageIcon ((getClass().getResource( "/Images/BossSpin2.png" )));
+	
+	ImageIcon img = BossStandby1;
 	
 	private int bossWidth=200;
 	private int bossHeight=200;
@@ -76,6 +87,13 @@ public class Boss{
 	private int shootBallStateYSpeed = 60;
 	private int BALL_DAMAGE = 10;
 	
+	private boolean bossStandby = false;
+	private boolean doXerathUlt = false;
+	private boolean shootFlames = false;
+	private boolean startJump = false;
+	private boolean jump = false;
+	private boolean spin = false;
+	
 	public void reset(){
 		health = 500;
 	}
@@ -87,7 +105,20 @@ public class Boss{
 		if(!gottenYPos){
 			yToGoTo = panel.player.yPos-(panel.player.playerSize/2)-20; //HER ENDRA Æ! MENE DEN SKYT BALLAN LITT LAVT!
 			gottenYPos = true;
+			
+			bossStandby = false;
+			doXerathUlt = false;
+			shootFlames = false;
+			startJump = true;
+			jump = false;
+			spin = false;
 		}if (gottenYPos && !atYPos){
+			bossStandby = false;
+			doXerathUlt = false;
+			shootFlames = false;
+			startJump = false;
+			jump = true;
+			spin = false;
 			if(yPos<yToGoTo-40 && yPos<yToGoTo+40){
 				if(yPos+shootBallStateYSpeed+bossHeight>panel.SCREEN_HEIGHT-panel.arena.bottomWall.getHeight()){
 					yToGoTo = yPos;
@@ -109,6 +140,12 @@ public class Boss{
 			}
 		}else{
 			if(System.currentTimeMillis()-shootStartTimer<howLongShouldIShoot){
+				bossStandby = false;
+				doXerathUlt = false;
+				shootFlames = true;
+				startJump = false;
+				jump = false;
+				spin = false;
 				bulletXPlus += bulletSpeed;
 				bulletXMinus -= bulletSpeed;
 				leftShot = new Ellipse2D.Double(bulletXMinus, yPos+(bossHeight/2)-(ballDiameter/2) ,ballDiameter,ballDiameter);
@@ -125,6 +162,12 @@ public class Boss{
 	}
 	
 	private void stopShootBalls(){
+		bossStandby = true;
+		doXerathUlt = false;
+		shootFlames = false;
+		startJump = false;
+		jump = false;
+		spin = false;
 		gottenYPos = false;
 		atYPos = false;
 		leftShot = new Ellipse2D.Double(-1000,-1000,50,50);
@@ -136,7 +179,12 @@ public class Boss{
 		//HARDKODA BOSS STATE!!!
 		takeDamage();
 		if(System.currentTimeMillis()-startTimer<=2500){
-			
+			bossStandby = true;
+			doXerathUlt = false;
+			shootFlames = false;
+			startJump = false;
+			jump = false;
+			spin = false;
 		}
 		else if(System.currentTimeMillis()-startTimer<=10000){
 			doXerathUlt();
@@ -153,8 +201,9 @@ public class Boss{
 			doSpinToWin();
 		}
 		else if(System.currentTimeMillis()-startTimer<=38000){
-			doSpinToWin();
 			doXerathUlt();
+			doSpinToWin();
+			
 		}else{
 			startTimer=System.currentTimeMillis();
 			stopXerathUlt();
@@ -195,9 +244,21 @@ public class Boss{
 		xerathUltNotification = new Ellipse2D.Double(-1000,-1000,50,50);
 		xerathUltFired = false;
 		xerathExplosion = false;
+		bossStandby = true;
+		doXerathUlt = false;
+		shootFlames = false;
+		startJump = false;
+		jump = false;
+		spin = false;
 	}
 	
 	public void doXerathUlt(){
+		bossStandby = false;
+		doXerathUlt = true;
+		shootFlames = false;
+		startJump = false;
+		jump = false;
+		spin = false;
 		
 		if(!xerathUltFired){
 			xerathUltX = panel.player.xPos+(panel.player.playerSize/2);
@@ -205,14 +266,17 @@ public class Boss{
 			xerathUltNotification = new Ellipse2D.Double(xerathUltX-(xerathUltNotificationDiameter/2),xerathUltY-(xerathUltNotificationDiameter/2),50,50);
 			xerathUltNotificationInMillis = System.currentTimeMillis();
 			xerathUltFired = true;
+			img = BossFireUp1;
 		}else{
 			
 			if(System.currentTimeMillis()-xerathUltNotificationInMillis>=xerathNotificationDuration && !xerathExplosion){
 				xerathUlt = new Ellipse2D.Double(xerathUltX-(xerathUltExplosionDiameter/2),xerathUltY-(xerathUltExplosionDiameter/2),xerathUltExplosionDiameter,xerathUltExplosionDiameter);
 				xerathUltExplosionInMillis = System.currentTimeMillis();
 				xerathExplosion = true;
+				img = BossFireUp2;
 			}else if (System.currentTimeMillis()-xerathUltExplosionInMillis>=xerathUltExplosionDuration && xerathExplosion){
 				stopXerathUlt();
+				img = BossStandby1;
 				
 			}
 		}
@@ -220,6 +284,12 @@ public class Boss{
 	}
 	
 	public void doSpinToWin(){
+		bossStandby = false;
+		doXerathUlt = false;
+		shootFlames = false;
+		startJump = false;
+		jump = false;
+		spin = true;
 		xPos += xSpeed;
 		yPos += ySpeed;
 		if(bossRectangle.intersects(panel.arena.rightWall)){
@@ -256,7 +326,7 @@ public class Boss{
 }
 	
 	
-	
+	private int tick = 0;
 	public void paint(Graphics2D g){
 		
 		g.setColor(Color.RED);
@@ -271,7 +341,48 @@ public class Boss{
 		g.setFont(new Font ("Times New Roman", Font.BOLD, 30));
 		g.drawString(bossName+": ", (int)healthbar.getX()-100, (int)(healthbar.getY()+20));
 		g.fill(healthbar);
-		g.fill(bossRectangle);
+		//g.fill(bossRectangle);
+		
+		if(bossStandby){
+			if(tick<5){
+				img = BossStandby1;
+				tick++;
+			}else if(tick<10){
+				img = BossStandby2;
+				tick++;
+			}else{
+				tick=0;
+			}
+		}else if(spin){
+			if(tick<3){
+				img = BossSpin1;
+				tick++;
+			}else if(tick<6){
+				img = BossSpin2;
+				tick++;
+			}else{
+				tick=0;
+			}
+			
+		}
+		else if(doXerathUlt){
+			if(tick<5){
+				img = BossFireUp1;
+				tick++;
+			}else if(tick<10){
+				img = BossFireUp2;
+				tick++;
+			}else{
+				tick=0;
+			}
+		}else if(shootFlames){
+			img = BossFireSides;
+		}else if(startJump){
+			img = BossPreJump;
+		}else if(jump){
+			img = BossPostJump;
+		}
+		g.drawImage(img.getImage(), xPos ,yPos, bossWidth, bossHeight, null);
 		g.setColor(Color.BLACK);
 		
 	}

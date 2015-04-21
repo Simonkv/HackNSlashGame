@@ -91,7 +91,7 @@ public class GameOver {
 		
 		//g.fill(background);
 		g.setColor(Color.ORANGE);
-		g.setFont(new Font ("Times New Roman", Font.BOLD, 80));
+		g.setFont(new Font ("Times New Roman", Font.BOLD, 60));
         //g.drawString("YOU BE DEADED!", 310, 90);
         g.drawString(panel.highscoreList.getScore(), 365, 330);
         //g.drawString("TOP 3:", 310, 180);

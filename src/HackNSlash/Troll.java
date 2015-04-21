@@ -229,7 +229,7 @@ public GamePanel panel;
 					img = TrollFrontStandby;
 				}
 			}
-			g.drawImage(img.getImage(), xPos-30 ,yPos-50, 150, 150, null);
+			g.drawImage(img.getImage(), xPos-30 ,yPos-50, 140, 140, null);
 			
 			g.setColor(Color.RED);
 			g.fill(healthbar);
@@ -426,6 +426,7 @@ public GamePanel panel;
 
 	@Override
 	public void knockBack() {
+		if(!troll.intersects(panel.arena.rightWall) && !troll.intersects(panel.arena.topWall) && !troll.intersects(panel.arena.bottomWall) && !troll.intersects(panel.arena.leftWall)){
 		if (isAlive()){
 			if (troll.intersects(panel.player.attack1)){
 				if (yPriority){
@@ -541,6 +542,7 @@ public GamePanel panel;
 				}
 				reduceHealth(3);
 			}
+		}
 		}
 	}
 	

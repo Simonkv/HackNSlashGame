@@ -68,8 +68,8 @@ public class Warrior extends Avatar {
 	private int attack1Length = 130;
 	private int attack1Width = 50;
 	private int attack2Diameter = 150;
-	public int attack1Damage = 7;
-	public int attack2Damage = 2;
+	public int attack1Damage = 4;
+	public int attack2Damage = 1;
 	
 	private int ySpeed=0;
 	private int xSpeed=0;
@@ -345,7 +345,7 @@ public class Warrior extends Avatar {
 	
 	public boolean attackOffCooldown(){
 		if(System.currentTimeMillis()-cooldownStart<cooldownInMillis){
-			System.out.println("FORTSATT COOLDOWN!");
+			//System.out.println("FORTSATT COOLDOWN!");
 			return false;
 			
 		}else{

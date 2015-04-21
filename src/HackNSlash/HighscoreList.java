@@ -82,7 +82,7 @@ public class HighscoreList {
 		
 		
 		if(panel.gameOver.won){
-			System.out.println("DID WIN!");
+			//System.out.println("DID WIN!");
 			if(1000-panel.waveTimer.seconds>0){
 				newHighscore = newHighscore + ((1000-panel.waveTimer.seconds)*10);
 			}
@@ -117,7 +117,7 @@ public class HighscoreList {
 		//g.setColor(Color.GRAY);
 		//g.fill(HSWall);
 		g.setColor(Color.ORANGE);
-		g.setFont(new Font ("Times New Roman", Font.BOLD, 50));
+		g.setFont(new Font ("Times New Roman", Font.BOLD, 40));
         //g.drawString("Your highscores:", 310, 90);
         g.drawString(""+ getElement(0), 345, 210);
         g.drawString(""+ getElement(1), 345, 300);
